@@ -8,13 +8,18 @@
         <outputRelativeToContentRoot value="true" />
         <module name="springSecurityJDBC" />
         <module name="basicSecurity" />
+        <module name="springSecurityJDBCCustom" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="springCustomSecuruty" target="11" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="basicSecurity" options="-parameters" />
       <module name="springSecurityJDBC" options="-parameters" />
+      <module name="springSecurityJDBCCustom" options="-parameters" />
     </option>
   </component>
 </project>
