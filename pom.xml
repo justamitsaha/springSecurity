@@ -16,7 +16,8 @@
     <modules>
         <module>1basicSecurity</module>
         <module>2springSecurityJDBC</module>
-        <module>springSecurityJDBCCustom</module>
+        <module>3springSecurityJDBCCustom</module>
+        <module>4springJDBCCustomH2</module>
     </modules>
 
     <properties>

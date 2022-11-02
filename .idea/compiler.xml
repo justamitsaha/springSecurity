@@ -6,9 +6,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="springSecurityJDBC" />
         <module name="basicSecurity" />
+        <module name="springSecurityJDBC" />
         <module name="springSecurityJDBCCustom" />
+        <module name="springJDBCCustomH2" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -18,6 +19,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="basicSecurity" options="-parameters" />
+      <module name="springJDBCCustomH2" options="-parameters" />
       <module name="springSecurityJDBC" options="-parameters" />
       <module name="springSecurityJDBCCustom" options="-parameters" />
     </option>
