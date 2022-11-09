@@ -1,7 +1,9 @@
 package com.saha.amit;
 
 import com.saha.amit.model.Customer;
+import com.saha.amit.model.NewCustomer;
 import com.saha.amit.repository.CustomerRepository;
+import com.saha.amit.repository.NewCustomerRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,9 +18,10 @@ public class SpringJDBCCustomH2Application {
 
 
     @Bean
-    CommandLineRunner commandLineRunner (CustomerRepository customerRepository) {
+    CommandLineRunner commandLineRunner (CustomerRepository customerRepository, NewCustomerRepository newCustomerRepository) {
         return args -> {
-            customerRepository.save(new Customer("johndoe@example.com","12345", "admin"));
+            customerRepository.save(new Customer("johndoe@example.com","321", "admin"));
+            newCustomerRepository.save(new NewCustomer("abc@xyz.com","123", "admin"));
         };
     }
 }

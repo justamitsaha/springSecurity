@@ -10,23 +10,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@EnableWebSecurity
-@EnableMethodSecurity
 public class SecurityConfig {
 
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
-//        return http
-//                .csrf(csrf -> csrf.disable())
-//                .authorizeRequests(auth -> auth
-//                        .regexMatchers("(/private/.*)").authenticated()
-//                        .antMatchers("/public","/h2-console/**").permitAll()
-//                )
-//                .headers(headers -> headers.frameOptions().sameOrigin())
-//                .build();
-
         http.csrf().disable()
                 .authorizeRequests(auth -> auth
                         .regexMatchers("(/private/.*)").authenticated()
