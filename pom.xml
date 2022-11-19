@@ -18,6 +18,10 @@
         <module>2springSecurityJDBC</module>
         <module>3springSecurityJDBCCustom</module>
         <module>4springJDBCCustomH2</module>
+        <module>5springCorsCSRF</module>
+        <module>6springCustomFilter</module>
+        <module>7springJWTFilter</module>
+        <module>8springOAuthGithub</module>
     </modules>
 
     <properties>

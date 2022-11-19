@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 public class SpringJDBCCustomH2Application {
     public static void main(String[] args) {
         System.out.println("http://localhost:8080/h2-console");
+        System.out.println("Run applicatin from --> http://localhost:8080/public/home");
         SpringApplication.run(SpringJDBCCustomH2Application.class,args);
     }
 

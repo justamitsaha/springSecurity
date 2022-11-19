@@ -6,20 +6,29 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="springOAuthGithub" />
         <module name="basicSecurity" />
+        <module name="springCustomFilter" />
         <module name="springSecurityJDBC" />
         <module name="springSecurityJDBCCustom" />
         <module name="springJDBCCustomH2" />
+        <module name="springCorsCSRF" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="springCustomSecuruty" target="11" />
+      <module name="springGitHubOAuth" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="basicSecurity" options="-parameters" />
+      <module name="springCorsCSRF" options="-parameters" />
+      <module name="springCustomFilter" options="-parameters" />
+      <module name="springGitHubOAuth" options="-parameters" />
       <module name="springJDBCCustomH2" options="-parameters" />
+      <module name="springJWTFilter" options="-parameters" />
+      <module name="springOAuthGithub" options="-parameters" />
       <module name="springSecurityJDBC" options="-parameters" />
       <module name="springSecurityJDBCCustom" options="-parameters" />
     </option>
