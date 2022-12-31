@@ -19,15 +19,19 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Logger;
 
 
 public class JWTTokenGeneratorFilter extends OncePerRequestFilter {
+
+    private final Logger LOG =
+            Logger.getLogger(AuthoritiesLoggingAfterFilter.class.getName());
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        System.out.println("URL -->  "+ request.getRequestURI());
+        LOG.info("Request URL -->  "+ request.getRequestURI());
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (null != authentication) {
             SecretKey key = Keys.hmacShaKeyFor(SecurityConstants.JWT_KEY.getBytes(StandardCharsets.UTF_8));
@@ -38,6 +42,8 @@ public class JWTTokenGeneratorFilter extends OncePerRequestFilter {
                     .setExpiration(new Date((new Date()).getTime() + 30000000))
                     .signWith(key).compact();
             response.setHeader(SecurityConstants.JWT_HEADER, jwt);
+        } else {
+            LOG.info("Failed Token generation");
         }
 
         filterChain.doFilter(request, response);

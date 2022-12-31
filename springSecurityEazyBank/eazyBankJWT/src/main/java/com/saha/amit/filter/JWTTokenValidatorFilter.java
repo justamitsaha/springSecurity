@@ -18,11 +18,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.logging.Logger;
 
 public class JWTTokenValidatorFilter extends OncePerRequestFilter {
+
+    private final Logger LOG =
+            Logger.getLogger(AuthoritiesLoggingAfterFilter.class.getName());
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        System.out.println("URL -->  "+ request.getRequestURI());
+        LOG.info("Login URL -->  "+ request.getRequestURI());
         String jwt = request.getHeader(SecurityConstants.JWT_HEADER);
         if (null != jwt) {
             try {
@@ -43,6 +48,8 @@ public class JWTTokenValidatorFilter extends OncePerRequestFilter {
                 throw new BadCredentialsException("Invalid Token received!");
             }
 
+        } else {
+            LOG.info("Failed Token generation");
         }
         filterChain.doFilter(request, response);
     }

@@ -10,11 +10,15 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import java.util.Enumeration;
+import java.util.logging.Logger;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 public class RequestValidationBeforeFilter implements Filter {
 
+    private final Logger LOG =
+            Logger.getLogger(AuthoritiesLoggingAtFilter.class.getName());
     public static final String AUTHENTICATION_SCHEME_BASIC = "Basic";
     private Charset credentialsCharset = StandardCharsets.UTF_8;
     @Override
@@ -23,6 +27,12 @@ public class RequestValidationBeforeFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
         String header = req.getHeader(AUTHORIZATION);
+        Enumeration<String> headerNames = req.getHeaderNames();
+        if (headerNames != null) {
+            while (headerNames.hasMoreElements()) {
+                LOG.info("Header: --> " + headerNames.nextElement() + " --> "+ req.getHeader(headerNames.nextElement()));
+            }
+        }
         if (header != null) {
             header = header.trim();
             if (StringUtils.startsWithIgnoreCase(header, AUTHENTICATION_SCHEME_BASIC)) {
