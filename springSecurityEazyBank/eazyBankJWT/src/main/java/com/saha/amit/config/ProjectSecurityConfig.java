@@ -24,6 +24,7 @@ public class ProjectSecurityConfig {
 
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+        /*Configuration to run from local
         http.securityContext().requireExplicitSave(false)
                 .and().cors().configurationSource(new CorsConfigurationSource() {
                     @Override
@@ -38,6 +39,23 @@ public class ProjectSecurityConfig {
                         return config;
                     }
                 }).and().csrf().ignoringAntMatchers("/contact", "/register").csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                .and().addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class)
+                .addFilterAt(new AuthoritiesLoggingAtFilter(), BasicAuthenticationFilter.class)
+                .addFilterAfter(new AuthoritiesLoggingAfterFilter(), BasicAuthenticationFilter.class)
+                .addFilterAfter(new JWTTokenGeneratorFilter(), BasicAuthenticationFilter.class)
+                .addFilterAfter(new JWTTokenValidatorFilter(), BasicAuthenticationFilter.class).authorizeHttpRequests()
+                .antMatchers("/myAccount").hasRole("USER")
+                .antMatchers("/myBalance").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/myLoans").hasRole("USER")
+                .antMatchers("/myCards").hasRole("USER")
+                .antMatchers("/user").authenticated()
+                .antMatchers("/notices", "/contact", "/register").permitAll()
+                .and().formLogin()
+                .and().httpBasic();
+         */
+
+        http.securityContext().requireExplicitSave(false)
+                .and().csrf().ignoringAntMatchers("/contact", "/register").csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .and().addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class)
                 .addFilterAt(new AuthoritiesLoggingAtFilter(), BasicAuthenticationFilter.class)
                 .addFilterAfter(new AuthoritiesLoggingAfterFilter(), BasicAuthenticationFilter.class)
