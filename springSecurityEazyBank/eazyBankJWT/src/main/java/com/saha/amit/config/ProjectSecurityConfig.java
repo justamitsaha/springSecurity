@@ -6,6 +6,7 @@ import com.saha.amit.filter.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -24,7 +25,9 @@ public class ProjectSecurityConfig {
 
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-        /*Configuration to run from local
+
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        /*Configuration to run from local */
         http.securityContext().requireExplicitSave(false)
                 .and().cors().configurationSource(new CorsConfigurationSource() {
                     @Override
@@ -52,23 +55,25 @@ public class ProjectSecurityConfig {
                 .antMatchers("/notices", "/contact", "/register").permitAll()
                 .and().formLogin()
                 .and().httpBasic();
-         */
 
-        http.securityContext().requireExplicitSave(false)
-                .and().csrf().ignoringAntMatchers("/contact", "/register").csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .and().addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class)
-                .addFilterAt(new AuthoritiesLoggingAtFilter(), BasicAuthenticationFilter.class)
-                .addFilterAfter(new AuthoritiesLoggingAfterFilter(), BasicAuthenticationFilter.class)
-                .addFilterAfter(new JWTTokenGeneratorFilter(), BasicAuthenticationFilter.class)
-                .addFilterAfter(new JWTTokenValidatorFilter(), BasicAuthenticationFilter.class).authorizeHttpRequests()
-                .antMatchers("/myAccount").hasRole("USER")
-                .antMatchers("/myBalance").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/myLoans").hasRole("USER")
-                .antMatchers("/myCards").hasRole("USER")
-                .antMatchers("/user").authenticated()
-                .antMatchers("/notices", "/contact", "/register").permitAll()
-                .and().formLogin()
-                .and().httpBasic();
+
+//        http.securityContext().requireExplicitSave(false)
+//                .and().csrf().ignoringAntMatchers("/contact", "/register").csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+//                .and().addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class)
+//                .addFilterAt(new AuthoritiesLoggingAtFilter(), BasicAuthenticationFilter.class)
+//                .addFilterAfter(new AuthoritiesLoggingAfterFilter(), BasicAuthenticationFilter.class)
+//                .addFilterAfter(new JWTTokenGeneratorFilter(), BasicAuthenticationFilter.class)
+//                .addFilterAfter(new JWTTokenValidatorFilter(), BasicAuthenticationFilter.class).authorizeHttpRequests()
+//                .antMatchers("/myAccount").hasRole("USER")
+//                .antMatchers("/myBalance").hasAnyRole("USER", "ADMIN")
+//                .antMatchers("/myLoans").hasRole("USER")
+//                .antMatchers("/myCards").hasRole("USER")
+//                .antMatchers("/user").authenticated()
+//                .antMatchers("/notices", "/contact", "/register").permitAll()
+//                .and().formLogin()
+//                .and().httpBasic();
+
+
         return http.build();
     }
 

@@ -25,19 +25,19 @@ import java.util.logging.Logger;
 public class JWTTokenGeneratorFilter extends OncePerRequestFilter {
 
     private final Logger LOG =
-            Logger.getLogger(AuthoritiesLoggingAfterFilter.class.getName());
+            Logger.getLogger(JWTTokenGeneratorFilter.class.getName());
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        LOG.info("Request URL -->  "+ request.getRequestURI());
+        LOG.info("Request URL -->  " + request.getRequestURI());
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (null != authentication) {
             SecretKey key = Keys.hmacShaKeyFor(SecurityConstants.JWT_KEY.getBytes(StandardCharsets.UTF_8));
             String jwt = Jwts.builder().setIssuer("Eazy Bank").setSubject("JWT Token")
                     .claim("username", authentication.getName())
-                    .claim("authorities",populateAuthorities(authentication.getAuthorities()))
+                    .claim("authorities", populateAuthorities(authentication.getAuthorities()))
                     .setIssuedAt(new Date())
                     .setExpiration(new Date((new Date()).getTime() + 30000000))
                     .signWith(key).compact();

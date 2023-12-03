@@ -19,6 +19,8 @@ public class SecurityConfig {
     UsernamePasswordAuthenticationFilter -->attemptAuthentication Extracts
     UsernamePasswordAuthenticationToken extends --> AbstractAuthenticationToken implements -->Authentication
     ProviderManager(UsernamePasswordAuthenticationToken)  implements --> AuthenticationManager
+    DaoAuthenticationProvider. -->So whenever we are using the default authentication provider as a developer, our responsibility is only to load the user details from the storage system
+    like database and configure what is a password and code that we want to use.
      */
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

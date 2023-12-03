@@ -55,7 +55,6 @@ public class LoginController {
         } else {
             return null;
         }
-
     }
 
 }

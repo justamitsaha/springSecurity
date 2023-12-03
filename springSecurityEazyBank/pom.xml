@@ -13,6 +13,7 @@
         <module>eazyBankCustomJDBC</module>
         <module>eazyBankJdbc</module>
         <module>eazyBankBasicSecurity</module>
+        <module>eazyBankJWTRequestBody</module>
     </modules>
 
     <parent>
