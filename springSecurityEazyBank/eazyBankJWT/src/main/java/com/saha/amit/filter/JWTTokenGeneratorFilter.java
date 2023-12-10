@@ -49,6 +49,10 @@ public class JWTTokenGeneratorFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
+    /*
+    *Makes sure the filter method executes only during login for /user API
+    * to generate Token and not for any other API
+     */
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         return !request.getServletPath().equals("/user");

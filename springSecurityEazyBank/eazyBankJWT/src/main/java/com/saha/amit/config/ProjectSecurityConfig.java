@@ -16,8 +16,10 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 
 @Configuration
@@ -26,14 +28,19 @@ public class ProjectSecurityConfig {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
 
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        List<String> origins = new ArrayList<>();
+        origins.add("http://localhost:4200");
+        origins.add("http://localhost");
+
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);  //Telling Spring security not to create session id
         /*Configuration to run from local */
         http.securityContext().requireExplicitSave(false)
                 .and().cors().configurationSource(new CorsConfigurationSource() {
                     @Override
                     public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
                         CorsConfiguration config = new CorsConfiguration();
-                        config.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
+                        //config.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
+                        config.setAllowedOrigins(origins);
                         config.setAllowedMethods(Collections.singletonList("*"));
                         config.setAllowCredentials(true);
                         config.setAllowedHeaders(Collections.singletonList("*"));
@@ -47,10 +54,14 @@ public class ProjectSecurityConfig {
                 .addFilterAfter(new AuthoritiesLoggingAfterFilter(), BasicAuthenticationFilter.class)
                 .addFilterAfter(new JWTTokenGeneratorFilter(), BasicAuthenticationFilter.class)
                 .addFilterAfter(new JWTTokenValidatorFilter(), BasicAuthenticationFilter.class).authorizeHttpRequests()
-                .antMatchers("/myAccount").hasRole("USER")
-                .antMatchers("/myBalance").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/myLoans").hasRole("USER")
-                .antMatchers("/myCards").hasRole("USER")
+//                .antMatchers("/myAccount").hasRole("USER")
+//                .antMatchers("/myBalance").hasAnyRole("USER", "ADMIN")
+//                .antMatchers("/myLoans").hasRole("USER")
+//                .antMatchers("/myCards").hasRole("USER")
+                .antMatchers("/myAccount").hasAuthority("VIEWACCOUNT")
+                .antMatchers("/myBalance").hasAnyAuthority("VIEWACCOUNT", "VIEWBALANCE")
+                .antMatchers("/myLoans").hasAuthority("VIEWLOANS")
+                .antMatchers("/myCards").hasAuthority("VIEWCARDS")
                 .antMatchers("/user").authenticated()
                 .antMatchers("/notices", "/contact", "/register").permitAll()
                 .and().formLogin()

@@ -17,10 +17,11 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 public class RequestValidationBeforeFilter implements Filter {
 
+    public static final String AUTHENTICATION_SCHEME_BASIC = "Basic";
     private final Logger LOG =
             Logger.getLogger(AuthoritiesLoggingAtFilter.class.getName());
-    public static final String AUTHENTICATION_SCHEME_BASIC = "Basic";
     private Charset credentialsCharset = StandardCharsets.UTF_8;
+
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
@@ -28,11 +29,19 @@ public class RequestValidationBeforeFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) response;
         String header = req.getHeader(AUTHORIZATION);
         Enumeration<String> headerNames = req.getHeaderNames();
-        if (headerNames != null) {
-            while (headerNames.hasMoreElements()) {
-                LOG.info("Header: --> " + headerNames.nextElement() + " --> "+ req.getHeader(headerNames.nextElement()));
-            }
-        }
+//        if (headerNames != null) {
+//            while (headerNames.hasMoreElements()) {
+//                LOG.info("Header Name: --> " + headerNames.nextElement());
+//                String cookie = "";
+//                if (!headerNames.nextElement().equals("cookie")) {
+//                    LOG.info("Header: --> " + headerNames.nextElement() + " --> " + req.getHeader(headerNames.nextElement()));
+//                }
+//                else {
+//                    cookie = req.getHeader(headerNames.nextElement());
+//                    LOG.info(cookie);
+//                }
+//            }
+//        }
         if (header != null) {
             header = header.trim();
             if (StringUtils.startsWithIgnoreCase(header, AUTHENTICATION_SCHEME_BASIC)) {

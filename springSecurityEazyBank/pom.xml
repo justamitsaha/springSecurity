@@ -8,12 +8,13 @@
         <module>eazyBankJWT</module>
         <module>eazyBankOAuth</module>
         <module>eazyBankCustomFilter</module>
-        <module>eazyBankCorsCSRF</module>
+        <module>3eazyBankCorsCSRF</module>
         <module>eazyBankJdbcCustomH2</module>
         <module>eazyBankCustomJDBC</module>
         <module>eazyBankJdbc</module>
-        <module>eazyBankBasicSecurity</module>
+        <module>1eazyBankBasicSecurity</module>
         <module>eazyBankJWTRequestBody</module>
+        <module>2eazyBankCustomAuthenticationProvider</module>
     </modules>
 
     <parent>
