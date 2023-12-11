@@ -15,7 +15,7 @@
         <module>1eazyBankBasicSecurity</module>
         <module>eazyBankJWTRequestBody</module>
         <module>2eazyBankCustomAuthenticationProvider</module>
-        <module>4eazyBankMethodLevelSecurity</module>
+        <module>eazyBankMethodLevelSecurity</module>
     </modules>
 
     <parent>
