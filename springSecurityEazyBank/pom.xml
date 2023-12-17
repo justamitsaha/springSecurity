@@ -6,7 +6,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>4eazyBankJWT</module>
-        <module>eazyBankOAuth</module>
+        <module>6eazyBankOAuthGitHub</module>
         <module>eazyBankCustomFilter</module>
         <module>3eazyBankCorsCSRF</module>
         <module>eazyBankJdbcCustomH2</module>
