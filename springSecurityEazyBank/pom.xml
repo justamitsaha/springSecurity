@@ -16,6 +16,7 @@
         <module>eazyBankJWTRequestBody</module>
         <module>2eazyBankCustomAuthenticationProvider</module>
         <module>5eazyBankMethodLevelSecurity</module>
+        <module>7eazyBankKeyCloak</module>
     </modules>
 
     <parent>
