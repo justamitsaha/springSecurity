@@ -2,13 +2,19 @@ package com.saha.amit.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.password.CompromisedPasswordChecker;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.password.HaveIBeenPwnedRestApiPasswordChecker;
 
 @Configuration
 public class SecurityConfig {
@@ -24,50 +30,40 @@ public class SecurityConfig {
      */
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .regexMatchers("(/private/.*)").authenticated()
-                .antMatchers("/public").permitAll()
-                .antMatchers("/admin").hasRole("ADMIN");
-        http.formLogin();
-        http.httpBasic();
+
+        http.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> authorizationManagerRequestMatcherRegistry
+                        //.anyRequest().permitAll()
+                        //.anyRequest().authenticated()
+                        //.anyRequest().denyAll()
+                        .requestMatchers("/private/balance", "private/message", "/admin/announcement", "/admin/loan").authenticated()
+                        .requestMatchers("/public/home", "/public/contact", "/error").permitAll()
+                )
+                //.formLogin(fl->fl.disable())      //When this is disabled instead of showing login form browser shows popup to read credentials and add to header
+                //.httpBasic(bs->bs.disable())
+                .formLogin(Customizer.withDefaults())          //Enable form based login, credentials will be extracted from UsernamePasswordAuthenticationFilter
+                .httpBasic(Customizer.withDefaults());          //credentials inside the httpRequest header by Base64 encoding them, BasicAuthenticationFilter
         return http.build();
     }
 
 
     @Bean
-    public InMemoryUserDetailsManager userDetailsService() {
-        //Approach 2 where we use NoOpPasswordEncoder Bean
-        //while creating the user details
-        UserDetails admin = User.withUsername("admin")
-                .password("12345")
-                .roles("ADMIN")
-                .build();
-        UserDetails user = User.withUsername("user")
-                .password("12345")
-                .roles("USER")
-                .build();
+    //public UserDetailsManager userDetailsService() { This has additional API for create user, reset pwd etc.
+    public UserDetailsService userDetailsService() {
+        UserDetails admin = User.withUsername("admin").password("{noop}12345").roles("ADMIN").build();
+        //https://bcrypt-generator.com/
+        UserDetails user = User.withUsername("user").password("{bcrypt}$2a$12$HknEwKGJto6O4zTn0pSA6.L9OX2wDEa3beQpN3W5XKrbNCipR0eTm")
+                .roles("USER").build();
         return new InMemoryUserDetailsManager(admin, user);
-//      Approach 1 where we use withDefaultPasswordEncoder() method
-//		while creating the user details
-//        UserDetails admin = User.withDefaultPasswordEncoder()
-//                .username("admin")
-//                .password("12345")
-//                .authorities("admin")
-//                .build();
-//        UserDetails user = User.withDefaultPasswordEncoder()
-//                .username("user")
-//                .password("12345")
-//                .authorities("read")
-//                .build();
-//        return new InMemoryUserDetailsManager(admin, user);
-
-
-
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
+
+    @Bean
+    public CompromisedPasswordChecker compromisedPasswordChecker(){
+        return new HaveIBeenPwnedRestApiPasswordChecker();
     }
 
 }
