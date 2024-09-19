@@ -27,5 +27,6 @@ CREATE TABLE `customer` (
   PRIMARY KEY (`id`)
 );
 
-INSERT INTO `customer` (`email`, `pwd`, `role`)
- VALUES ('johndoe@example.com', '54321', 'admin');
+INSERT INTO `customer` (`email`, `pwd`, `role`)  VALUES ('johndoe@example.com', '{noop}54321', 'user');
+INSERT INTO `customer` (`email`, `pwd`, `role`)  VALUES
+('admin@example.com', '{bcrypt}$2a$12$HknEwKGJto6O4zTn0pSA6.L9OX2wDEa3beQpN3W5XKrbNCipR0eTm', 'user');

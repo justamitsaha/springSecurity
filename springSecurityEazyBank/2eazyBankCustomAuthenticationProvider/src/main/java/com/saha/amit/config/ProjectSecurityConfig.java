@@ -14,10 +14,10 @@ public class ProjectSecurityConfig {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> authorizationManagerRequestMatcherRegistry
-                                //.anyRequest().permitAll()
-                        .requestMatchers("/private/.*").authenticated()
-                        .requestMatchers("/public/*").permitAll()
-                        .requestMatchers("/h2-console/*").permitAll()
+                                .anyRequest().permitAll()
+//                        .requestMatchers("/private/.*").authenticated()
+//                        .requestMatchers("/public/*").permitAll()
+//                        .requestMatchers("/h2-console/*").permitAll()
                 ).formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults());
        /* http.csrf().disable()
