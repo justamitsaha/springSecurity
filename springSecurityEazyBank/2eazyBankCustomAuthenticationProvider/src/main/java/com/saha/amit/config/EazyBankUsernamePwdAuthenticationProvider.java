@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class EazyBankUsernamePwdAuthenticationProvider implements AuthenticationProvider {
@@ -30,11 +31,11 @@ public class EazyBankUsernamePwdAuthenticationProvider implements Authentication
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = authentication.getName();
         String pwd = authentication.getCredentials().toString();
-        List<Customer> customer = customerRepository.findByEmail(username);
-        if (customer.size() > 0) {
-            if (passwordEncoder.matches(pwd, customer.get(0).getPwd())) {
+        Optional<Customer> customer = customerRepository.findByEmail(username);
+        if (customer.isPresent()) {
+            if (passwordEncoder.matches(pwd, customer.get().getPwd())) {
                 List<GrantedAuthority> authorities = new ArrayList<>();
-                authorities.add(new SimpleGrantedAuthority(customer.get(0).getRole()));
+                authorities.add(new SimpleGrantedAuthority(customer.get().getRole()));
                 return new UsernamePasswordAuthenticationToken(username, pwd, authorities);
             } else {
                 throw new BadCredentialsException("Invalid password!");

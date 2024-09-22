@@ -1,11 +1,12 @@
 package com.saha.amit.repository;
 
-import com.saha.amit.model.Contact;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import com.saha.amit.model.Contact;
+
 @Repository
-public interface ContactRepository extends CrudRepository<Contact, Long> {
+public interface ContactRepository extends CrudRepository<Contact, String> {
 	
 	
 }

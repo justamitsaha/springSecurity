@@ -1,13 +1,16 @@
 package com.saha.amit;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 @SpringBootApplication
-public class EazyBankCorsCSRFApplication {
-
-    public static void main(String[] args) {
-        System.out.println("http://localhost:8080/h2-console");
-        SpringApplication.run(EazyBankCorsCSRFApplication.class,args);
+public class EazyBankCorsCsrfApplication {
+        public static void main(String[] args) {
+        SpringApplication.run(EazyBankCorsCsrfApplication.class, args);
     }
+
 }

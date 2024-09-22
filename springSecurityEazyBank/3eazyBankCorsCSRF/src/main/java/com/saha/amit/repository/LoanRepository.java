@@ -1,14 +1,15 @@
 package com.saha.amit.repository;
 
-import com.saha.amit.model.Loans;
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import com.saha.amit.model.Loans;
 
 @Repository
 public interface LoanRepository extends CrudRepository<Loans, Long> {
 	
-	List<Loans> findByCustomerIdOrderByStartDtDesc(int customerId);
+	List<Loans> findByCustomerIdOrderByStartDtDesc(long customerId);
 
 }

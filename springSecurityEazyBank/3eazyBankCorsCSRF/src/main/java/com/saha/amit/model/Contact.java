@@ -1,13 +1,16 @@
 package com.saha.amit.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.sql.Date;
 
 @Entity
+@Getter @Setter
 @Table(name = "contact_messages")
 public class Contact {
 
@@ -27,53 +30,5 @@ public class Contact {
 
 	@Column(name = "create_dt")
 	private Date createDt;
-
-	public String getContactId() {
-		return contactId;
-	}
-
-	public void setContactId(String contactId) {
-		this.contactId = contactId;
-	}
-
-	public String getContactName() {
-		return contactName;
-	}
-
-	public void setContactName(String contactName) {
-		this.contactName = contactName;
-	}
-
-	public String getContactEmail() {
-		return contactEmail;
-	}
-
-	public void setContactEmail(String contactEmail) {
-		this.contactEmail = contactEmail;
-	}
-
-	public String getSubject() {
-		return subject;
-	}
-
-	public void setSubject(String subject) {
-		this.subject = subject;
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
-	public Date getCreateDt() {
-		return createDt;
-	}
-
-	public void setCreateDt(Date createDt) {
-		this.createDt = createDt;
-	}
 	
 }

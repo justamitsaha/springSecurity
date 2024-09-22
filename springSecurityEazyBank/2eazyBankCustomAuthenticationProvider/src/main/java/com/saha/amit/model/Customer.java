@@ -20,6 +20,25 @@ public class Customer {
     private String pwd;
     private String role;
 
+    public Customer() {
+    }
+
+    public Customer(String email, String pwd, String role) {
+        this.email = email;
+        this.pwd = pwd;
+        this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", pwd='" + pwd + '\'' +
+                ", role='" + role + '\'' +
+                '}';
+    }
+
     public int getId() {
         return id;
     }
