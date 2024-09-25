@@ -2,7 +2,10 @@ package com.saha.amit.config;
 
 import com.saha.amit.exceptionhandling.CustomAccessDeniedHandler;
 import com.saha.amit.exceptionhandling.CustomBasicAuthenticationEntryPoint;
+import com.saha.amit.filter.AuthoritiesLoggingAfterFilter;
+import com.saha.amit.filter.AuthoritiesLoggingAtFilter;
 import com.saha.amit.filter.CsrfCookieFilter;
+import com.saha.amit.filter.RequestValidationBeforeFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -51,17 +54,27 @@ public class ProjectSecurityProdConfig {
                         return config;
                     }
                 }))
+                // .requiresChannel(rcc -> rcc.anyRequest().requiresSecure()) // Only HTTPS
                 .csrf(csrfConfig -> csrfConfig.csrfTokenRequestHandler(csrfTokenRequestAttributeHandler)
-                        .ignoringRequestMatchers("/contact", "/register", "/h2-console/**")
+                        .ignoringRequestMatchers("/register", "/h2-console/**","/contact")
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
-                // .requiresChannel(rcc -> rcc.anyRequest().requiresSecure()) // Only HTTPS
+                .addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class)
+                .addFilterAfter(new AuthoritiesLoggingAfterFilter(), BasicAuthenticationFilter.class)
+                .addFilterAt(new AuthoritiesLoggingAtFilter(), BasicAuthenticationFilter.class)
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/myAccount", "/myBalance", "/myLoans", "/myCards", "/user").authenticated()
-                        .requestMatchers("/notices", "/contact", "/error", "/register", "/invalidSession", "/h2-console/**").permitAll()
+                                .requestMatchers("/myAccount").hasRole("USER")
+                                .requestMatchers("/myBalance").hasAnyRole("USER", "ADMIN")
+                                .requestMatchers("/myLoans").hasRole("USER")
+                                .requestMatchers("/myCards").hasRole("USER")
+                                .requestMatchers("/user").authenticated()
+                                .requestMatchers("/notices", "/contact", "/error", "/register", "/invalidSession", "/h2-console/**").permitAll()
+                                //.requestMatchers("/myAccount").hasAuthority("VIEWACCOUNT")
+                                // .requestMatchers("/myBalance").hasAnyAuthority("VIEWBALANCE", "VIEWACCOUNT")
+                                // .requestMatchers("/myLoans").hasAuthority("VIEWLOANS")
+                                // .requestMatchers("/myCards").hasAuthority("VIEWCARDS")
                 )
-                .headers(headers -> headers
-                        .frameOptions().sameOrigin()) // Allow H2 console in an iframe
+                .headers(headers -> headers.frameOptions().sameOrigin()) // Allow H2 console in an iframe
                 .formLogin(withDefaults())
                 .httpBasic(hbc -> hbc.authenticationEntryPoint(new CustomBasicAuthenticationEntryPoint()))
                 .exceptionHandling(ehc -> ehc.accessDeniedHandler(new CustomAccessDeniedHandler()));

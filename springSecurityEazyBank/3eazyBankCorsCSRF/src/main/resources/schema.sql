@@ -1,13 +1,23 @@
--- Create customer table
 CREATE TABLE customer (
-  customer_id INT AUTO_INCREMENT PRIMARY KEY,
+  customer_id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(100) NOT NULL,
   email VARCHAR(100) NOT NULL,
   mobile_number VARCHAR(20) NOT NULL,
   pwd VARCHAR(500) NOT NULL,
   role VARCHAR(100) NOT NULL,
-  create_dt DATE DEFAULT NULL
+  create_dt DATE DEFAULT NULL,
+  PRIMARY KEY (customer_id)
 );
+
+--Authorities table
+CREATE TABLE authorities (
+  id INT NOT NULL AUTO_INCREMENT,
+  customer_id INT NOT NULL,
+  name VARCHAR(50) NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT fk_authorities_customer FOREIGN KEY (customer_id) REFERENCES customer (customer_id)
+);
+
 
 -- Create accounts table
 CREATE TABLE accounts (
@@ -78,5 +88,14 @@ CREATE TABLE notice_details (
   notic_end_dt DATE DEFAULT NULL,
   create_dt DATE DEFAULT NULL,
   update_dt DATE DEFAULT NULL
+);
+
+CREATE TABLE contact_messages (
+  contact_id varchar(50) NOT NULL PRIMARY KEY,
+  contact_name varchar(50) NOT NULL,
+  contact_email varchar(100) NOT NULL,
+  subject varchar(500) NOT NULL,
+  message varchar(2000) NOT NULL,
+  create_dt date DEFAULT NULL
 );
 
