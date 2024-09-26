@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface LoanRepository extends CrudRepository<Loans, Long> {
 	
-	List<Loans> findByCustomerIdOrderByStartDtDesc(int customerId);
+	List<Loans> findByCustomerIdOrderByStartDtDesc(long customerId);
 
 }

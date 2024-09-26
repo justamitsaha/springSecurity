@@ -1,9 +1,14 @@
 package com.saha.amit.filter;
 
-import com.saha.amit.constants.SecurityConstants;
+import com.saha.amit.constants.ApplicationConstants;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -12,50 +17,50 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.crypto.SecretKey;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.logging.Logger;
 
 public class JWTTokenValidatorFilter extends OncePerRequestFilter {
-
-    private final Logger LOG =
-            Logger.getLogger(AuthoritiesLoggingAfterFilter.class.getName());
-
+    /**
+     * @param request
+     * @param response
+     * @param filterChain
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        LOG.info("Login URL -->  "+ request.getRequestURI());
-        String jwt = request.getHeader(SecurityConstants.JWT_HEADER);
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
+        String jwt = request.getHeader(ApplicationConstants.JWT_HEADER);
         if (null != jwt) {
             try {
-                SecretKey key = Keys.hmacShaKeyFor(
-                        SecurityConstants.JWT_KEY.getBytes(StandardCharsets.UTF_8));
+                Environment env = getEnvironment();
+                if (null != env) {
+                    String secret = env.getProperty(ApplicationConstants.JWT_SECRET_KEY, ApplicationConstants.JWT_SECRET_DEFAULT_VALUE);
+                    SecretKey secretKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+                    if (null != secretKey) {
+                        Claims claims = Jwts.parser()
+                                .verifyWith(secretKey)
+                                .build()
+                                .parseSignedClaims(jwt).getPayload();
+                        String username = String.valueOf(claims.get("username"));
+                        String authorities = String.valueOf(claims.get("authorities"));
+                        Authentication authentication = new UsernamePasswordAuthenticationToken(username, null,
+                                AuthorityUtils.commaSeparatedStringToAuthorityList(authorities));
+                        SecurityContextHolder.getContext().setAuthentication(authentication);
+                    }
+                }
 
-                Claims claims = Jwts.parserBuilder()
-                        .setSigningKey(key)
-                        .build()
-                        .parseClaimsJws(jwt)
-                        .getBody();
-                String username = String.valueOf(claims.get("username"));
-                String authorities = (String) claims.get("authorities");
-                Authentication auth = new UsernamePasswordAuthenticationToken(username, null,
-                        AuthorityUtils.commaSeparatedStringToAuthorityList(authorities));
-                SecurityContextHolder.getContext().setAuthentication(auth);
-            } catch (Exception e) {
+            } catch (Exception exception) {
                 throw new BadCredentialsException("Invalid Token received!");
             }
-
-        } else {
-            LOG.info("Failed Token generation");
         }
         filterChain.doFilter(request, response);
     }
 
     @Override
-    protected boolean shouldNotFilter(HttpServletRequest request) {
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         return request.getServletPath().equals("/user");
     }
+
 }

@@ -1,8 +1,8 @@
 package com.saha.amit.constants;
 
-public class ApplicationConstants {
+public final class ApplicationConstants {
 
-    public static final String ERROR_MSG = "An unknown error occured";
-    public static final String SUCCESS_MSG = "Request Successfully processed";
-
+    public static final String JWT_SECRET_KEY = "JWT_SECRET";
+    public static final String JWT_SECRET_DEFAULT_VALUE = "jxgEQeXHuPq8VdbyYFNkANdudQ53YUn4";
+    public static final String JWT_HEADER = "Authorization";
 }
