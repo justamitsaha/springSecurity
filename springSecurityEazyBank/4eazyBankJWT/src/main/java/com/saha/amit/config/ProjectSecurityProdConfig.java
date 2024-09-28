@@ -68,7 +68,7 @@ public class ProjectSecurityProdConfig {
                 .authorizeHttpRequests((requests) -> requests
                                 .requestMatchers("/myAccount").hasRole("USER")
                                 .requestMatchers("/myBalance").hasAnyRole("USER", "ADMIN")
-                                .requestMatchers("/myLoans").hasRole("USER")
+                                .requestMatchers("/myLoans").authenticated()        //role based access implemented using @PreAuthorize in LoanRepository
                                 .requestMatchers("/myCards").hasRole("USER")
                                 .requestMatchers("/user").authenticated()
                                 .requestMatchers("/notices", "/contact", "/error", "/register", "/invalidSession", "/h2-console/**","/apiLogin").permitAll()
