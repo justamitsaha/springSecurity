@@ -1,30 +1,27 @@
 package com.saha.amit.controller;
 
-
 import com.saha.amit.model.Customer;
+
 import com.saha.amit.repository.CustomerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.Optional;
 
 @RestController
-public class LoginController {
+@RequiredArgsConstructor
+public class UserController {
 
-    @Autowired
-    private CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
 
     @RequestMapping("/user")
     public Customer getUserDetailsAfterLogin(Authentication authentication) {
-        List<Customer> customers = customerRepository.findByEmail(authentication.getName());
-        if (customers.size() > 0) {
-            return customers.get(0);
-        } else {
-            return null;
-        }
-
+        Optional<Customer> optionalCustomer = customerRepository.findByEmail(authentication.getName());
+        return optionalCustomer.orElse(null);
     }
 
 }

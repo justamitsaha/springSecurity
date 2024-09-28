@@ -1,36 +1,38 @@
 package com.saha.amit.controller;
 
-
 import com.saha.amit.model.AccountTransactions;
+import com.saha.amit.model.Accounts;
 import com.saha.amit.model.Customer;
 import com.saha.amit.repository.AccountTransactionsRepository;
 import com.saha.amit.repository.CustomerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
+@RequiredArgsConstructor
 public class BalanceController {
 
-    @Autowired
-    private CustomerRepository customerRepository;
-
-    @Autowired
-    private AccountTransactionsRepository accountTransactionsRepository;
+    private final AccountTransactionsRepository accountTransactionsRepository;
+    private final CustomerRepository customerRepository;
 
     @GetMapping("/myBalance")
     public List<AccountTransactions> getBalanceDetails(@RequestParam String email) {
-        List<Customer> customers = customerRepository.findByEmail(email);
-        if (customers != null && !customers.isEmpty()) {
+        Optional<Customer> optionalCustomer = customerRepository.findByEmail(email);
+        if (optionalCustomer.isPresent()) {
             List<AccountTransactions> accountTransactions = accountTransactionsRepository.
-                    findByCustomerIdOrderByTransactionDtDesc(customers.get(0).getId());
-            if (accountTransactions != null ) {
+                    findByCustomerIdOrderByTransactionDtDesc(optionalCustomer.get().getId());
+            if (accountTransactions != null) {
                 return accountTransactions;
+            } else {
+                return null;
             }
+        } else {
+            return null;
         }
-        return null;
     }
 }

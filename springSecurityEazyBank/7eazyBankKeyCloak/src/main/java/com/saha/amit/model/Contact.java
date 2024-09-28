@@ -1,6 +1,6 @@
 package com.saha.amit.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import java.sql.Date;
 

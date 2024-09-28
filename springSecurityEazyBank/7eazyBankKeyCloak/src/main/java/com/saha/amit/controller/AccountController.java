@@ -1,35 +1,36 @@
 package com.saha.amit.controller;
 
-
 import com.saha.amit.model.Accounts;
 import com.saha.amit.model.Customer;
 import com.saha.amit.repository.AccountsRepository;
 import com.saha.amit.repository.CustomerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.Optional;
 
 @RestController
+@RequiredArgsConstructor
 public class AccountController {
 
-    @Autowired
-    private AccountsRepository accountsRepository;
-
-    @Autowired
-    private CustomerRepository customerRepository;
+    private final AccountsRepository accountsRepository;
+    private final CustomerRepository customerRepository;
 
     @GetMapping("/myAccount")
     public Accounts getAccountDetails(@RequestParam String email) {
-        List<Customer> customers = customerRepository.findByEmail(email);
-        if (customers != null && !customers.isEmpty()) {
-            Accounts accounts = accountsRepository.findByCustomerId(customers.get(0).getId());
+        Optional<Customer> optionalCustomer = customerRepository.findByEmail(email);
+        if (optionalCustomer.isPresent()) {
+            Accounts accounts = accountsRepository.findByCustomerId(optionalCustomer.get().getId());
             if (accounts != null) {
                 return accounts;
+            } else {
+                return null;
             }
+        } else {
+            return null;
         }
-        return null;
     }
+
 }

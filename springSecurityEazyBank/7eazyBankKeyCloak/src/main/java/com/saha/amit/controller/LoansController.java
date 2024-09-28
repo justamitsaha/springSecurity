@@ -1,36 +1,39 @@
 package com.saha.amit.controller;
 
-
 import com.saha.amit.model.Customer;
 import com.saha.amit.model.Loans;
 import com.saha.amit.repository.CustomerRepository;
 import com.saha.amit.repository.LoanRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
+@RequiredArgsConstructor
 public class LoansController {
 
-    @Autowired
-    private LoanRepository loanRepository;
-
-    @Autowired
-    private CustomerRepository customerRepository;
+    private final LoanRepository loanRepository;
+    private final CustomerRepository customerRepository;
 
     @GetMapping("/myLoans")
+    @PostAuthorize("hasRole('USER')")
     public List<Loans> getLoanDetails(@RequestParam String email) {
-        List<Customer> customers = customerRepository.findByEmail(email);
-        if (customers != null && !customers.isEmpty()) {
-            List<Loans> loans = loanRepository.findByCustomerIdOrderByStartDtDesc(customers.get(0).getId());
-            if (loans != null ) {
+        Optional<Customer> optionalCustomer = customerRepository.findByEmail(email);
+        if (optionalCustomer.isPresent()) {
+            List<Loans> loans = loanRepository.findByCustomerIdOrderByStartDtDesc(optionalCustomer.get().getId());
+            if (loans != null) {
                 return loans;
+            } else {
+                return null;
             }
+        } else {
+            return null;
         }
-        return null;
     }
 
 }

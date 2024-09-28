@@ -2,7 +2,7 @@ package com.saha.amit.model;
 
 import java.sql.Date;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
