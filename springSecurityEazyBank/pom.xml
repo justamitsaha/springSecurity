@@ -13,6 +13,7 @@
         <module>6eazyBankOAuthGitHub</module>
         <module>7eazyBankKeyCloak</module>
         <module>eazyBankJWTRequestBody</module>
+        <module>authServer</module>
     </modules>
 
     <parent>

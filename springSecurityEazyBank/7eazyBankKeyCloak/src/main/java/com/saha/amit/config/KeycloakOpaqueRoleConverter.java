@@ -1,6 +1,5 @@
 package com.saha.amit.config;
 
-
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,12 +12,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-
 public class KeycloakOpaqueRoleConverter implements OpaqueTokenAuthenticationConverter {
     /**
      * @param introspectedToken      the bearer token used to perform token introspection
      * @param authenticatedPrincipal the result of token introspection
-     * @return
+     * @return UsernamePasswordAuthenticationToken
      */
     @Override
     public Authentication convert(String introspectedToken, OAuth2AuthenticatedPrincipal authenticatedPrincipal) {

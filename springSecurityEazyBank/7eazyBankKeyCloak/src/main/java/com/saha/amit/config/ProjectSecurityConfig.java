@@ -1,9 +1,10 @@
 package com.saha.amit.config;
 
-
 import com.saha.amit.exceptionhandling.CustomAccessDeniedHandler;
 import com.saha.amit.filter.CsrfCookieFilter;
 import jakarta.servlet.http.HttpServletRequest;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,18 +26,20 @@ import java.util.Collections;
 @Profile("!prod")
 public class ProjectSecurityConfig {
 
-    /*@Value("${spring.security.oauth2.resourceserver.opaque.introspection-uri}")
+    Log log = LogFactory.getLog(ProjectSecurityConfig.class);
+
+    @Value("${spring.security.oauth2.resourceserver.opaque.introspection-uri}")
     String introspectionUri;
 
     @Value("${spring.security.oauth2.resourceserver.opaque.introspection-client-id}")
     String clientId;
 
     @Value("${spring.security.oauth2.resourceserver.opaque.introspection-client-secret}")
-    String clientSecret;*/
+    String clientSecret;
 
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-        System.out.println("ProjectSecurityConfig");
+        log.info("Initializing "+ProjectSecurityConfig.class);
         JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
         jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(new KeycloakRoleConverter());
         CsrfTokenRequestAttributeHandler csrfTokenRequestAttributeHandler = new CsrfTokenRequestAttributeHandler();
@@ -66,10 +69,10 @@ public class ProjectSecurityConfig {
                         .requestMatchers("/myCards").hasRole("USER")
                         .requestMatchers("/user").authenticated()
                         .requestMatchers("/notices", "/contact", "/error", "/register").permitAll());
-        http.oauth2ResourceServer(rsc -> rsc.jwt(jwtConfigurer ->
-                jwtConfigurer.jwtAuthenticationConverter(jwtAuthenticationConverter)));
-        /*http.oauth2ResourceServer(rsc -> rsc.opaqueToken(otc -> otc.authenticationConverter(new KeycloakOpaqueRoleConverter())
-                .introspectionUri(this.introspectionUri).introspectionClientCredentials(this.clientId,this.clientSecret)));*/
+        /*http.oauth2ResourceServer(rsc -> rsc.jwt(jwtConfigurer ->
+                jwtConfigurer.jwtAuthenticationConverter(jwtAuthenticationConverter)));*/
+        http.oauth2ResourceServer(rsc -> rsc.opaqueToken(otc -> otc.authenticationConverter(new KeycloakOpaqueRoleConverter())
+                .introspectionUri(this.introspectionUri).introspectionClientCredentials(this.clientId,this.clientSecret)));
         http.exceptionHandling(ehc -> ehc.accessDeniedHandler(new CustomAccessDeniedHandler()));
         return http.build();
     }

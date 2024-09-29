@@ -6,12 +6,12 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
 @SpringBootApplication
-@EnableWebSecurity
-@EnableMethodSecurity(prePostEnabled = true,  securedEnabled = true,  jsr250Enabled = true)
-public class EazyBankKeyCloakResourceServerApplication {
+@EnableWebSecurity(debug = true)
+@EnableMethodSecurity(jsr250Enabled = true,securedEnabled = true)
+public class EazyBankBackendApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(EazyBankKeyCloakResourceServerApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(EazyBankBackendApplication.class, args);
+    }
 
 }
