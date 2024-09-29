@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "66ee11bd-d24b-4313-a0cc-a5ce2419a8a6",
+		"_postman_id": "b9275087-3cb8-4d5b-a55e-db1b644c203b",
 		"name": "SpringSecurity",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "1599575"
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "12621221"
 	},
 	"item": [
 		{
@@ -17,12 +17,7 @@
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/welcome",
-							"path": [
-								"welcome"
-							]
-						}
+						"url": "/welcome"
 					},
 					"response": []
 				}
@@ -61,27 +56,14 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "12345",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "eazybytes",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"password": "12345",
+								"username": "eazybytes"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/myAccount",
-							"path": [
-								"myAccount"
-							]
-						}
+						"url": "/myAccount"
 					},
 					"response": []
 				},
@@ -90,27 +72,14 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "eazybytes",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "12345",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"username": "eazybytes",
+								"password": "12345"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/myBalance",
-							"path": [
-								"myBalance"
-							]
-						}
+						"url": "/myBalance"
 					},
 					"response": []
 				},
@@ -119,27 +88,14 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "eazybytes",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "12345",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"username": "eazybytes",
+								"password": "12345"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/myLoans",
-							"path": [
-								"myLoans"
-							]
-						}
+						"url": "/myLoans"
 					},
 					"response": []
 				},
@@ -148,27 +104,14 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "eazybytes",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "12345",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"username": "eazybytes",
+								"password": "12345"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/myCards",
-							"path": [
-								"myCards"
-							]
-						}
+						"url": "/myCards"
 					},
 					"response": []
 				},
@@ -180,12 +123,7 @@
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/notices",
-							"path": [
-								"notices"
-							]
-						}
+						"url": "/notices"
 					},
 					"response": []
 				},
@@ -197,12 +135,7 @@
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/contact",
-							"path": [
-								"contact"
-							]
-						}
+						"url": "/contact"
 					},
 					"response": []
 				}
@@ -241,27 +174,14 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "EazyBytes@12345",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "user",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"password": "EazyBytes@12345",
+								"username": "user"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/myAccount",
-							"path": [
-								"myAccount"
-							]
-						}
+						"url": "/myAccount"
 					},
 					"response": []
 				},
@@ -270,27 +190,14 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "user",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "EazyBytes@12345",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"username": "user",
+								"password": "EazyBytes@12345"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/myBalance",
-							"path": [
-								"myBalance"
-							]
-						}
+						"url": "/myBalance"
 					},
 					"response": []
 				},
@@ -299,27 +206,14 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "user",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "EazyBytes@12345",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"username": "user",
+								"password": "EazyBytes@12345"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/myLoans",
-							"path": [
-								"myLoans"
-							]
-						}
+						"url": "/myLoans"
 					},
 					"response": []
 				},
@@ -328,27 +222,14 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "user",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "EazyBytes@12345",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"username": "user",
+								"password": "EazyBytes@12345"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/myCards",
-							"path": [
-								"myCards"
-							]
-						}
+						"url": "/myCards"
 					},
 					"response": []
 				},
@@ -360,12 +241,7 @@
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/notices",
-							"path": [
-								"notices"
-							]
-						}
+						"url": "/notices"
 					},
 					"response": []
 				},
@@ -377,12 +253,7 @@
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/contact",
-							"path": [
-								"contact"
-							]
-						}
+						"url": "/contact"
 					},
 					"response": []
 				}
@@ -421,27 +292,14 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "john@example.com",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "EazyBytes@12345",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"username": "john@example.com",
+								"password": "EazyBytes@12345"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/myAccount",
-							"path": [
-								"myAccount"
-							]
-						}
+						"url": "/myAccount"
 					},
 					"response": []
 				},
@@ -450,27 +308,14 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "john@example.com",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "EazyBytes@12345",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"username": "john@example.com",
+								"password": "EazyBytes@12345"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/myBalance",
-							"path": [
-								"myBalance"
-							]
-						}
+						"url": "/myBalance"
 					},
 					"response": []
 				},
@@ -479,27 +324,14 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "john@example.com",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "EazyBytes@12345",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"username": "john@example.com",
+								"password": "EazyBytes@12345"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/myLoans",
-							"path": [
-								"myLoans"
-							]
-						}
+						"url": "/myLoans"
 					},
 					"response": []
 				},
@@ -508,27 +340,14 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "john@example.com",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "EazyBytes@12345",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"username": "john@example.com",
+								"password": "EazyBytes@12345"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/myCards",
-							"path": [
-								"myCards"
-							]
-						}
+						"url": "/myCards"
 					},
 					"response": []
 				},
@@ -540,12 +359,7 @@
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/notices",
-							"path": [
-								"notices"
-							]
-						}
+						"url": "/notices"
 					},
 					"response": []
 				},
@@ -557,12 +371,7 @@
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/contact",
-							"path": [
-								"contact"
-							]
-						}
+						"url": "/contact"
 					},
 					"response": []
 				},
@@ -583,12 +392,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "/register",
-							"path": [
-								"register"
-							]
-						}
+						"url": "/register"
 					},
 					"response": []
 				}
@@ -627,27 +431,14 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "smith@example.com",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "EazyBytes@12345",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"username": "smith@example.com",
+								"password": "EazyBytes@12345"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/myAccount",
-							"path": [
-								"myAccount"
-							]
-						}
+						"url": "/myAccount"
 					},
 					"response": []
 				},
@@ -656,27 +447,14 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "john@example.com",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "EazyBytes@12345",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"username": "john@example.com",
+								"password": "EazyBytes@12345"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/myBalance",
-							"path": [
-								"myBalance"
-							]
-						}
+						"url": "/myBalance"
 					},
 					"response": []
 				},
@@ -685,27 +463,14 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "john@example.com",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "EazyBytes@12345",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"username": "john@example.com",
+								"password": "EazyBytes@12345"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/myLoans",
-							"path": [
-								"myLoans"
-							]
-						}
+						"url": "/myLoans"
 					},
 					"response": []
 				},
@@ -714,27 +479,14 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "user",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "EazyBytes@12345",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"username": "user",
+								"password": "EazyBytes@12345"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/myCards",
-							"path": [
-								"myCards"
-							]
-						}
+						"url": "/myCards"
 					},
 					"response": []
 				},
@@ -746,12 +498,7 @@
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/notices",
-							"path": [
-								"notices"
-							]
-						}
+						"url": "/notices"
 					},
 					"response": []
 				},
@@ -763,12 +510,7 @@
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/contact",
-							"path": [
-								"contact"
-							]
-						}
+						"url": "/contact"
 					},
 					"response": []
 				},
@@ -789,12 +531,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "/register",
-							"path": [
-								"register"
-							]
-						}
+						"url": "/register"
 					},
 					"response": []
 				}
@@ -833,27 +570,14 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "EazyBytes@12345",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "smith@example.com",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"password": "EazyBytes@12345",
+								"username": "smith@example.com"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/myAccount",
-							"path": [
-								"myAccount"
-							]
-						}
+						"url": "/myAccount"
 					},
 					"response": []
 				},
@@ -862,27 +586,14 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "john@example.com",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "EazyBytes@12345",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"username": "john@example.com",
+								"password": "EazyBytes@12345"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/myBalance",
-							"path": [
-								"myBalance"
-							]
-						}
+						"url": "/myBalance"
 					},
 					"response": []
 				},
@@ -891,27 +602,14 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "john@example.com",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "EazyBytes@12345",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"username": "john@example.com",
+								"password": "EazyBytes@12345"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/myLoans",
-							"path": [
-								"myLoans"
-							]
-						}
+						"url": "/myLoans"
 					},
 					"response": []
 				},
@@ -920,27 +618,14 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "user",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "EazyBytes@12345",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"username": "user",
+								"password": "EazyBytes@12345"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/myCards",
-							"path": [
-								"myCards"
-							]
-						}
+						"url": "/myCards"
 					},
 					"response": []
 				},
@@ -952,12 +637,7 @@
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/notices",
-							"path": [
-								"notices"
-							]
-						}
+						"url": "/notices"
 					},
 					"response": []
 				},
@@ -969,12 +649,7 @@
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/contact",
-							"path": [
-								"contact"
-							]
-						}
+						"url": "/contact"
 					},
 					"response": []
 				},
@@ -995,12 +670,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "/register",
-							"path": [
-								"register"
-							]
-						}
+						"url": "/register"
 					},
 					"response": []
 				}
@@ -1039,27 +709,14 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "smith@example.com",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "EazyBytes@12345",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"username": "smith@example.com",
+								"password": "EazyBytes@12345"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/myAccount",
-							"path": [
-								"myAccount"
-							]
-						}
+						"url": "/myAccount"
 					},
 					"response": []
 				},
@@ -1068,27 +725,14 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "john@example.com",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "EazyBytes@12345",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"username": "john@example.com",
+								"password": "EazyBytes@12345"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/myBalance",
-							"path": [
-								"myBalance"
-							]
-						}
+						"url": "/myBalance"
 					},
 					"response": []
 				},
@@ -1097,27 +741,14 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "john@example.com",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "EazyBytes@12345",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"username": "john@example.com",
+								"password": "EazyBytes@12345"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/myLoans",
-							"path": [
-								"myLoans"
-							]
-						}
+						"url": "/myLoans"
 					},
 					"response": []
 				},
@@ -1126,27 +757,14 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "user",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "EazyBytes@12345",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"username": "user",
+								"password": "EazyBytes@12345"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/myCards",
-							"path": [
-								"myCards"
-							]
-						}
+						"url": "/myCards"
 					},
 					"response": []
 				},
@@ -1158,12 +776,7 @@
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/notices",
-							"path": [
-								"notices"
-							]
-						}
+						"url": "/notices"
 					},
 					"response": []
 				},
@@ -1175,12 +788,7 @@
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/contact",
-							"path": [
-								"contact"
-							]
-						}
+						"url": "/contact"
 					},
 					"response": []
 				},
@@ -1201,12 +809,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "/register",
-							"path": [
-								"register"
-							]
-						}
+						"url": "/register"
 					},
 					"response": []
 				}
@@ -1245,18 +848,10 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "smith@example.com",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "EazyBytes@12345",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"username": "smith@example.com",
+								"password": "EazyBytes@12345"
+							}
 						},
 						"method": "GET",
 						"header": [],
@@ -1280,18 +875,10 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "john@example.com",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "EazyBytes@12345",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"username": "john@example.com",
+								"password": "EazyBytes@12345"
+							}
 						},
 						"method": "GET",
 						"header": [],
@@ -1315,18 +902,10 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "john@example.com",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "EazyBytes@12345",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"username": "john@example.com",
+								"password": "EazyBytes@12345"
+							}
 						},
 						"method": "GET",
 						"header": [],
@@ -1350,18 +929,10 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "user",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "EazyBytes@12345",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"username": "user",
+								"password": "EazyBytes@12345"
+							}
 						},
 						"method": "GET",
 						"header": [],
@@ -1388,12 +959,7 @@
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/notices",
-							"path": [
-								"notices"
-							]
-						}
+						"url": "/notices"
 					},
 					"response": []
 				},
@@ -1419,12 +985,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "/contact",
-							"path": [
-								"contact"
-							]
-						}
+						"url": "/contact"
 					},
 					"response": []
 				},
@@ -1445,12 +1006,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "/register",
-							"path": [
-								"register"
-							]
-						}
+						"url": "/register"
 					},
 					"response": []
 				},
@@ -1459,27 +1015,14 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "EazyBytes@54321",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "happy@example.com",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"password": "EazyBytes@54321",
+								"username": "happy@example.com"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/user",
-							"path": [
-								"user"
-							]
-						}
+						"url": "/user"
 					},
 					"response": []
 				}
@@ -1518,18 +1061,10 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "happy@example.com",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "EazyBytes@12345",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"username": "happy@example.com",
+								"password": "EazyBytes@12345"
+							}
 						},
 						"method": "GET",
 						"header": [],
@@ -1553,18 +1088,10 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "happy@example.com",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "EazyBytes@12345",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"username": "happy@example.com",
+								"password": "EazyBytes@12345"
+							}
 						},
 						"method": "GET",
 						"header": [],
@@ -1588,18 +1115,10 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "happy@example.com",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "EazyBytes@12345",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"username": "happy@example.com",
+								"password": "EazyBytes@12345"
+							}
 						},
 						"method": "GET",
 						"header": [],
@@ -1623,18 +1142,10 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "john@example.com",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "EazyBytes@12345",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"username": "john@example.com",
+								"password": "EazyBytes@12345"
+							}
 						},
 						"method": "GET",
 						"header": [],
@@ -1661,12 +1172,7 @@
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/notices",
-							"path": [
-								"notices"
-							]
-						}
+						"url": "/notices"
 					},
 					"response": []
 				},
@@ -1675,18 +1181,10 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "EazyBytes@54321",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "happy@example.com",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"password": "EazyBytes@54321",
+								"username": "happy@example.com"
+							}
 						},
 						"method": "POST",
 						"header": [
@@ -1704,12 +1202,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "/contact",
-							"path": [
-								"contact"
-							]
-						}
+						"url": "/contact"
 					},
 					"response": []
 				},
@@ -1730,12 +1223,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "/register",
-							"path": [
-								"register"
-							]
-						}
+						"url": "/register"
 					},
 					"response": []
 				},
@@ -1744,27 +1232,14 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "happy@example.com",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "EazyBytes@54321",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"username": "happy@example.com",
+								"password": "EazyBytes@54321"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/user",
-							"path": [
-								"user"
-							]
-						}
+						"url": "/user"
 					},
 					"response": []
 				}
@@ -1803,18 +1278,10 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "happy@example.com",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "EazyBytes@12345",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"username": "happy@example.com",
+								"password": "EazyBytes@12345"
+							}
 						},
 						"method": "GET",
 						"header": [],
@@ -1838,18 +1305,10 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "happy@example.com",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "EazyBytes@12345",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"username": "happy@example.com",
+								"password": "EazyBytes@12345"
+							}
 						},
 						"method": "GET",
 						"header": [],
@@ -1873,18 +1332,10 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "happy@example.com",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "EazyBytes@12345",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"username": "happy@example.com",
+								"password": "EazyBytes@12345"
+							}
 						},
 						"method": "GET",
 						"header": [],
@@ -1908,18 +1359,10 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "john@example.com",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "EazyBytes@12345",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"username": "john@example.com",
+								"password": "EazyBytes@12345"
+							}
 						},
 						"method": "GET",
 						"header": [],
@@ -1946,12 +1389,7 @@
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/notices",
-							"path": [
-								"notices"
-							]
-						}
+						"url": "/notices"
 					},
 					"response": []
 				},
@@ -1960,18 +1398,10 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "EazyBytes@54321",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "happy@example.com",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"password": "EazyBytes@54321",
+								"username": "happy@example.com"
+							}
 						},
 						"method": "POST",
 						"header": [
@@ -1989,12 +1419,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "/contact",
-							"path": [
-								"contact"
-							]
-						}
+						"url": "/contact"
 					},
 					"response": []
 				},
@@ -2015,12 +1440,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "/register",
-							"path": [
-								"register"
-							]
-						}
+						"url": "/register"
 					},
 					"response": []
 				},
@@ -2029,27 +1449,14 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "happy@example.com",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "EazyBytes@54321",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"username": "happy@example.com",
+								"password": "EazyBytes@54321"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/user",
-							"path": [
-								"user"
-							]
-						}
+						"url": "/user"
 					},
 					"response": []
 				}
@@ -2081,7 +1488,7 @@
 			]
 		},
 		{
-			"name": "Section_11",
+			"name": "Section_11_jtw",
 			"item": [
 				{
 					"name": "myAccount",
@@ -2151,7 +1558,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJFYXp5IEJhbmsiLCJzdWIiOiJKV1QgVG9rZW4iLCJ1c2VybmFtZSI6ImhhcHB5QGV4YW1wbGUuY29tIiwiYXV0aG9yaXRpZXMiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImlhdCI6MTcyMDE5MDgyMSwiZXhwIjoxNzIwMjIwODIxfQ.4VoI3vnT0O3PU4rjseZpwwmjrPEobzuHHOSoSpYv0WM",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJFYXp5IEJhbmsiLCJzdWIiOiJKV1QgVG9rZW4iLCJ1c2VybmFtZSI6ImhhcHB5QGV4YW1wbGUuY29tIiwiYXV0aG9yaXRpZXMiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsIkxPTE8iOiJQT0xPIiwiaWF0IjoxNzI3MzIwNTcyLCJleHAiOjE3MjczNTA1NzJ9.iH0BGSYJhvEkTPpfAKS02kTw6xBvQGA3s1IuVahy_8Y",
 								"type": "text"
 							}
 						],
@@ -2207,12 +1614,7 @@
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/notices",
-							"path": [
-								"notices"
-							]
-						}
+						"url": "/notices"
 					},
 					"response": []
 				},
@@ -2221,18 +1623,10 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "EazyBytes@54321",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "happy@example.com",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"password": "EazyBytes@54321",
+								"username": "happy@example.com"
+							}
 						},
 						"method": "POST",
 						"header": [
@@ -2250,12 +1644,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "/contact",
-							"path": [
-								"contact"
-							]
-						}
+						"url": "/contact"
 					},
 					"response": []
 				},
@@ -2276,12 +1665,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "/register",
-							"path": [
-								"register"
-							]
-						}
+						"url": "/register"
 					},
 					"response": []
 				},
@@ -2290,27 +1674,14 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "happy@example.com",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "EazyBytes@54321",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"password": "54321",
+								"username": "happy@example.com"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/user",
-							"path": [
-								"user"
-							]
-						}
+						"url": "/user"
 					},
 					"response": []
 				},
@@ -2331,12 +1702,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "/apiLogin",
-							"path": [
-								"apiLogin"
-							]
-						}
+						"url": "/apiLogin"
 					},
 					"response": []
 				}
@@ -2494,12 +1860,7 @@
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/notices",
-							"path": [
-								"notices"
-							]
-						}
+						"url": "/notices"
 					},
 					"response": []
 				},
@@ -2525,12 +1886,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "/contact",
-							"path": [
-								"contact"
-							]
-						}
+						"url": "/contact"
 					},
 					"response": []
 				},
@@ -2551,12 +1907,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "/register",
-							"path": [
-								"register"
-							]
-						}
+						"url": "/register"
 					},
 					"response": []
 				},
@@ -2565,27 +1916,14 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "happy@example.com",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "EazyBytes@54321",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"username": "happy@example.com",
+								"password": "EazyBytes@54321"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/user",
-							"path": [
-								"user"
-							]
-						}
+						"url": "/user"
 					},
 					"response": []
 				},
@@ -2606,12 +1944,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "/apiLogin",
-							"path": [
-								"apiLogin"
-							]
-						}
+						"url": "/apiLogin"
 					},
 					"response": []
 				}
@@ -2643,76 +1976,32 @@
 			]
 		},
 		{
-			"name": "Section_15",
+			"name": "Section_15_OAUTH_Keycloak",
 			"item": [
 				{
-					"name": "myAccount",
+					"name": "myAccount_Client_credentials",
 					"request": {
 						"auth": {
 							"type": "oauth2",
-							"oauth2": [
-								{
-									"key": "client_authentication",
-									"value": "body",
-									"type": "string"
-								},
-								{
-									"key": "scope",
-									"value": "openid email",
-									"type": "string"
-								},
-								{
-									"key": "clientSecret",
-									"value": "VxubZgAXyyTq9lGjj3qGvWNsHtE4SqTq",
-									"type": "string"
-								},
-								{
-									"key": "clientId",
-									"value": "eazybankapi",
-									"type": "string"
-								},
-								{
-									"key": "accessTokenUrl",
-									"value": "http://localhost:8180/realms/eazybankdev/protocol/openid-connect/token",
-									"type": "string"
-								},
-								{
-									"key": "tokenName",
-									"value": "AccessToken",
-									"type": "string"
-								},
-								{
-									"key": "grant_type",
-									"value": "client_credentials",
-									"type": "string"
-								},
-								{
-									"key": "state",
-									"value": "2fc61105-40ba-4b5f-8983-ec764ec4e437",
-									"type": "string"
-								},
-								{
-									"key": "authUrl",
-									"value": "http://localhost:9000/oauth2/authorize",
-									"type": "string"
-								},
-								{
-									"key": "useBrowser",
-									"value": true,
-									"type": "boolean"
-								},
-								{
-									"key": "addTokenTo",
-									"value": "header",
-									"type": "string"
-								}
-							]
+							"oauth2": {
+								"clientSecret": "5rNwd9WeTorucYO3khBp9M1kQKS1Iko8",
+								"clientId": "eazybankapi",
+								"grant_type": "client_credentials",
+								"accessTokenUrl": "http://localhost:7080/realms/eazybankdev/protocol/openid-connect/token",
+								"authUrl": "http://localhost:7080/realms/eazybankdev/protocol/openid-connect/auth",
+								"client_authentication": "body",
+								"scope": "openid email",
+								"tokenName": "AccessToken",
+								"state": "2fc61105-40ba-4b5f-8983-ec764ec4e437",
+								"useBrowser": true,
+								"addTokenTo": "header"
+							}
 						},
 						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJFYXp5IEJhbmsiLCJzdWIiOiJKV1QgVG9rZW4iLCJ1c2VybmFtZSI6ImhhcHB5QGV4YW1wbGUuY29tIiwiYXV0aG9yaXRpZXMiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImlhdCI6MTcxODczMDUwNiwiZXhwIjoxNzE4NzYwNTA2fQ.cShQCfCjzVV4GBha4uZlChlRsE8tTjDgJ4Q8sGrhKyA",
+								"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ6SUJiVkFJYWhKV3lyNXcwTVRxeHd6SEJDT3VfaGFCRVIxeHJHVDR3dFk0In0.eyJleHAiOjE3Mjc1MzkwMjgsImlhdCI6MTcyNzUzODcyOCwianRpIjoiNmJiOTljOTctZDljMi00YTk5LTk1YmEtMDBlZmVmMmQ0Nzc4IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo3MDgwL3JlYWxtcy9lYXp5YmFua2RldiIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiIwZDE0OTZjZC0yNTg2LTQzNmYtYTRkNi1mMjBiZGY3YWRiM2QiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJlYXp5YmFua2FwaSIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiLyoiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJkZWZhdWx0LXJvbGVzLWVhenliYW5rZGV2Il19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJvcGVuaWQgZW1haWwgcHJvZmlsZSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiY2xpZW50SG9zdCI6IjE3Mi4xNy4wLjEiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJzZXJ2aWNlLWFjY291bnQtZWF6eWJhbmthcGkiLCJjbGllbnRBZGRyZXNzIjoiMTcyLjE3LjAuMSIsImNsaWVudF9pZCI6ImVhenliYW5rYXBpIn0.iRNGlbBM6JofQ2guumVhngZbl7YMMXY9QRdfTDL6dh9hSATna-mObRL1atqC8d7HnR-dhnO9xDDQ4mKdF5jt6sYdmvWSlSsErIdrIjqGziy61z1sSw1HHCrwpgRUBRRv429prBT50fqyedAiOh41p_Xe8s08ZUq1uDrQAB9vbKa9uqlPccpjFleI4EiSxLgAgLFWMXRKJEkL1VaOAcOoKSX4PpVr6ShzwlE9Pkwxc_kfFagmx_jw7Tr2UR2doJ89WfYbiO_Yjy4bFE_RRAdI0CulcXjxXSiIp56h0QJYwnDvdwc4Wpqp0YIZtQF83ALweiKOBwKPpskJ0gEe_BQsPQ",
 								"type": "text"
 							}
 						],
@@ -2732,67 +2021,23 @@
 					"response": []
 				},
 				{
-					"name": "myBalance",
+					"name": "myBalance_Authorization_code",
 					"request": {
 						"auth": {
 							"type": "oauth2",
-							"oauth2": [
-								{
-									"key": "client_authentication",
-									"value": "body",
-									"type": "string"
-								},
-								{
-									"key": "scope",
-									"value": "openid email",
-									"type": "string"
-								},
-								{
-									"key": "clientSecret",
-									"value": "VxubZgAXyyTq9lGjj3qGvWNsHtE4SqTq",
-									"type": "string"
-								},
-								{
-									"key": "clientId",
-									"value": "eazybankapi",
-									"type": "string"
-								},
-								{
-									"key": "accessTokenUrl",
-									"value": "http://localhost:8180/realms/eazybankdev/protocol/openid-connect/token",
-									"type": "string"
-								},
-								{
-									"key": "tokenName",
-									"value": "AccessToken",
-									"type": "string"
-								},
-								{
-									"key": "grant_type",
-									"value": "client_credentials",
-									"type": "string"
-								},
-								{
-									"key": "state",
-									"value": "2fc61105-40ba-4b5f-8983-ec764ec4e437",
-									"type": "string"
-								},
-								{
-									"key": "authUrl",
-									"value": "http://localhost:9000/oauth2/authorize",
-									"type": "string"
-								},
-								{
-									"key": "useBrowser",
-									"value": true,
-									"type": "boolean"
-								},
-								{
-									"key": "addTokenTo",
-									"value": "header",
-									"type": "string"
-								}
-							]
+							"oauth2": {
+								"clientSecret": "3qso9jD1s9u6TEBBAJZmkwb4MRX23KlV",
+								"clientId": "eazybankclient",
+								"accessTokenUrl": "http://localhost:7080/realms/eazybankdev/protocol/openid-connect/token",
+								"authUrl": "http://localhost:7080/realms/eazybankdev/protocol/openid-connect/auth",
+								"useBrowser": true,
+								"grant_type": "authorization_code",
+								"client_authentication": "body",
+								"scope": "openid email",
+								"tokenName": "AccessToken",
+								"state": "2fc61105-40ba-4b5f-8983-ec764ec4e437",
+								"addTokenTo": "header"
+							}
 						},
 						"method": "GET",
 						"header": [
@@ -2818,67 +2063,23 @@
 					"response": []
 				},
 				{
-					"name": "myLoans",
+					"name": "myLoans_PKCE",
 					"request": {
 						"auth": {
 							"type": "oauth2",
-							"oauth2": [
-								{
-									"key": "client_authentication",
-									"value": "body",
-									"type": "string"
-								},
-								{
-									"key": "scope",
-									"value": "openid email",
-									"type": "string"
-								},
-								{
-									"key": "clientSecret",
-									"value": "VxubZgAXyyTq9lGjj3qGvWNsHtE4SqTq",
-									"type": "string"
-								},
-								{
-									"key": "clientId",
-									"value": "eazybankapi",
-									"type": "string"
-								},
-								{
-									"key": "accessTokenUrl",
-									"value": "http://localhost:8180/realms/eazybankdev/protocol/openid-connect/token",
-									"type": "string"
-								},
-								{
-									"key": "tokenName",
-									"value": "AccessToken",
-									"type": "string"
-								},
-								{
-									"key": "grant_type",
-									"value": "client_credentials",
-									"type": "string"
-								},
-								{
-									"key": "state",
-									"value": "2fc61105-40ba-4b5f-8983-ec764ec4e437",
-									"type": "string"
-								},
-								{
-									"key": "authUrl",
-									"value": "http://localhost:9000/oauth2/authorize",
-									"type": "string"
-								},
-								{
-									"key": "useBrowser",
-									"value": true,
-									"type": "boolean"
-								},
-								{
-									"key": "addTokenTo",
-									"value": "header",
-									"type": "string"
-								}
-							]
+							"oauth2": {
+								"clientId": "eazypublicclient",
+								"accessTokenUrl": "http://localhost:7080/realms/eazybankdev/protocol/openid-connect/token",
+								"authUrl": "http://localhost:7080/realms/eazybankdev/protocol/openid-connect/auth",
+								"clientSecret": "",
+								"grant_type": "authorization_code_with_pkce",
+								"client_authentication": "body",
+								"scope": "openid email",
+								"tokenName": "AccessToken",
+								"state": "2fc61105-40ba-4b5f-8983-ec764ec4e437",
+								"useBrowser": true,
+								"addTokenTo": "header"
+							}
 						},
 						"method": "GET",
 						"header": [
@@ -2908,68 +2109,20 @@
 					"request": {
 						"auth": {
 							"type": "oauth2",
-							"oauth2": [
-								{
-									"key": "scope",
-									"value": "openid email",
-									"type": "string"
-								},
-								{
-									"key": "clientSecret",
-									"value": "",
-									"type": "string"
-								},
-								{
-									"key": "clientId",
-									"value": "eazypublicclient",
-									"type": "string"
-								},
-								{
-									"key": "challengeAlgorithm",
-									"value": "S256",
-									"type": "string"
-								},
-								{
-									"key": "grant_type",
-									"value": "authorization_code_with_pkce",
-									"type": "string"
-								},
-								{
-									"key": "authUrl",
-									"value": "http://localhost:8180/realms/eazybankdev/protocol/openid-connect/auth",
-									"type": "string"
-								},
-								{
-									"key": "client_authentication",
-									"value": "body",
-									"type": "string"
-								},
-								{
-									"key": "accessTokenUrl",
-									"value": "http://localhost:8180/realms/eazybankdev/protocol/openid-connect/token",
-									"type": "string"
-								},
-								{
-									"key": "tokenName",
-									"value": "AccessToken",
-									"type": "string"
-								},
-								{
-									"key": "state",
-									"value": "2fc61105-40ba-4b5f-8983-ec764ec4e437",
-									"type": "string"
-								},
-								{
-									"key": "useBrowser",
-									"value": true,
-									"type": "boolean"
-								},
-								{
-									"key": "addTokenTo",
-									"value": "header",
-									"type": "string"
-								}
-							]
+							"oauth2": {
+								"clientSecret": "3qso9jD1s9u6TEBBAJZmkwb4MRX23KlV",
+								"accessTokenUrl": "http://localhost:7080/realms/eazybankdev/protocol/openid-connect/token",
+								"authUrl": "http://localhost:7080/realms/eazybankdev/protocol/openid-connect/auth",
+								"scope": "openid email",
+								"clientId": "eazypublicclient",
+								"challengeAlgorithm": "S256",
+								"grant_type": "authorization_code_with_pkce",
+								"client_authentication": "body",
+								"tokenName": "AccessToken",
+								"state": "2fc61105-40ba-4b5f-8983-ec764ec4e437",
+								"useBrowser": true,
+								"addTokenTo": "header"
+							}
 						},
 						"method": "GET",
 						"header": [
@@ -3002,12 +2155,7 @@
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/notices",
-							"path": [
-								"notices"
-							]
-						}
+						"url": "/notices"
 					},
 					"response": []
 				},
@@ -3033,12 +2181,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "/contact",
-							"path": [
-								"contact"
-							]
-						}
+						"url": "/contact"
 					},
 					"response": []
 				}
@@ -3077,63 +2220,19 @@
 					"request": {
 						"auth": {
 							"type": "oauth2",
-							"oauth2": [
-								{
-									"key": "scope",
-									"value": "openid USER ADMIN",
-									"type": "string"
-								},
-								{
-									"key": "client_authentication",
-									"value": "header",
-									"type": "string"
-								},
-								{
-									"key": "clientSecret",
-									"value": "VxubZgAXyyTq9lGjj3qGvWNsHtE4SqTq",
-									"type": "string"
-								},
-								{
-									"key": "tokenName",
-									"value": "AccessToken",
-									"type": "string"
-								},
-								{
-									"key": "clientId",
-									"value": "eazybankapi",
-									"type": "string"
-								},
-								{
-									"key": "accessTokenUrl",
-									"value": "http://localhost:9000/oauth2/token",
-									"type": "string"
-								},
-								{
-									"key": "grant_type",
-									"value": "client_credentials",
-									"type": "string"
-								},
-								{
-									"key": "state",
-									"value": "2fc61105-40ba-4b5f-8983-ec764ec4e437",
-									"type": "string"
-								},
-								{
-									"key": "authUrl",
-									"value": "http://localhost:9000/oauth2/authorize",
-									"type": "string"
-								},
-								{
-									"key": "useBrowser",
-									"value": true,
-									"type": "boolean"
-								},
-								{
-									"key": "addTokenTo",
-									"value": "header",
-									"type": "string"
-								}
-							]
+							"oauth2": {
+								"scope": "openid USER ADMIN",
+								"client_authentication": "header",
+								"clientSecret": "VxubZgAXyyTq9lGjj3qGvWNsHtE4SqTq",
+								"tokenName": "AccessToken",
+								"clientId": "eazybankapi",
+								"accessTokenUrl": "http://localhost:9000/oauth2/token",
+								"grant_type": "client_credentials",
+								"state": "2fc61105-40ba-4b5f-8983-ec764ec4e437",
+								"authUrl": "http://localhost:9000/oauth2/authorize",
+								"useBrowser": true,
+								"addTokenTo": "header"
+							}
 						},
 						"method": "GET",
 						"header": [
@@ -3163,63 +2262,19 @@
 					"request": {
 						"auth": {
 							"type": "oauth2",
-							"oauth2": [
-								{
-									"key": "scope",
-									"value": "openid email",
-									"type": "string"
-								},
-								{
-									"key": "clientSecret",
-									"value": "Qw3rTy6UjMnB9zXcV2pL0sKjHn5TxQqB",
-									"type": "string"
-								},
-								{
-									"key": "client_authentication",
-									"value": "body",
-									"type": "string"
-								},
-								{
-									"key": "clientId",
-									"value": "eazybankclient",
-									"type": "string"
-								},
-								{
-									"key": "accessTokenUrl",
-									"value": "http://localhost:9000/oauth2/token",
-									"type": "string"
-								},
-								{
-									"key": "grant_type",
-									"value": "authorization_code",
-									"type": "string"
-								},
-								{
-									"key": "tokenName",
-									"value": "AccessToken",
-									"type": "string"
-								},
-								{
-									"key": "state",
-									"value": "2fc61105-40ba-4b5f-8983-ec764ec4e437",
-									"type": "string"
-								},
-								{
-									"key": "authUrl",
-									"value": "http://localhost:9000/oauth2/authorize",
-									"type": "string"
-								},
-								{
-									"key": "useBrowser",
-									"value": true,
-									"type": "boolean"
-								},
-								{
-									"key": "addTokenTo",
-									"value": "header",
-									"type": "string"
-								}
-							]
+							"oauth2": {
+								"scope": "openid email",
+								"clientSecret": "Qw3rTy6UjMnB9zXcV2pL0sKjHn5TxQqB",
+								"client_authentication": "body",
+								"clientId": "eazybankclient",
+								"accessTokenUrl": "http://localhost:9000/oauth2/token",
+								"grant_type": "authorization_code",
+								"tokenName": "AccessToken",
+								"state": "2fc61105-40ba-4b5f-8983-ec764ec4e437",
+								"authUrl": "http://localhost:9000/oauth2/authorize",
+								"useBrowser": true,
+								"addTokenTo": "header"
+							}
 						},
 						"method": "GET",
 						"header": [
@@ -3249,63 +2304,19 @@
 					"request": {
 						"auth": {
 							"type": "oauth2",
-							"oauth2": [
-								{
-									"key": "clientSecret",
-									"value": "",
-									"type": "string"
-								},
-								{
-									"key": "clientId",
-									"value": "eazypublicclient",
-									"type": "string"
-								},
-								{
-									"key": "accessTokenUrl",
-									"value": "http://localhost:9000/oauth2/token",
-									"type": "string"
-								},
-								{
-									"key": "grant_type",
-									"value": "authorization_code_with_pkce",
-									"type": "string"
-								},
-								{
-									"key": "client_authentication",
-									"value": "body",
-									"type": "string"
-								},
-								{
-									"key": "scope",
-									"value": "openid email",
-									"type": "string"
-								},
-								{
-									"key": "tokenName",
-									"value": "AccessToken",
-									"type": "string"
-								},
-								{
-									"key": "state",
-									"value": "2fc61105-40ba-4b5f-8983-ec764ec4e437",
-									"type": "string"
-								},
-								{
-									"key": "authUrl",
-									"value": "http://localhost:9000/oauth2/authorize",
-									"type": "string"
-								},
-								{
-									"key": "useBrowser",
-									"value": true,
-									"type": "boolean"
-								},
-								{
-									"key": "addTokenTo",
-									"value": "header",
-									"type": "string"
-								}
-							]
+							"oauth2": {
+								"clientSecret": "",
+								"clientId": "eazypublicclient",
+								"accessTokenUrl": "http://localhost:9000/oauth2/token",
+								"grant_type": "authorization_code_with_pkce",
+								"client_authentication": "body",
+								"scope": "openid email",
+								"tokenName": "AccessToken",
+								"state": "2fc61105-40ba-4b5f-8983-ec764ec4e437",
+								"authUrl": "http://localhost:9000/oauth2/authorize",
+								"useBrowser": true,
+								"addTokenTo": "header"
+							}
 						},
 						"method": "GET",
 						"header": [
@@ -3335,68 +2346,20 @@
 					"request": {
 						"auth": {
 							"type": "oauth2",
-							"oauth2": [
-								{
-									"key": "client_authentication",
-									"value": "header",
-									"type": "string"
-								},
-								{
-									"key": "scope",
-									"value": "openid USER ADMIN",
-									"type": "string"
-								},
-								{
-									"key": "clientSecret",
-									"value": "VxubZgAXyyTq9lGjj3qGvWNsHtE4SqTq",
-									"type": "string"
-								},
-								{
-									"key": "clientId",
-									"value": "eazybankapi",
-									"type": "string"
-								},
-								{
-									"key": "accessTokenUrl",
-									"value": "http://localhost:9000/oauth2/token",
-									"type": "string"
-								},
-								{
-									"key": "grant_type",
-									"value": "client_credentials",
-									"type": "string"
-								},
-								{
-									"key": "challengeAlgorithm",
-									"value": "S256",
-									"type": "string"
-								},
-								{
-									"key": "authUrl",
-									"value": "http://localhost:8180/realms/eazybankdev/protocol/openid-connect/auth",
-									"type": "string"
-								},
-								{
-									"key": "tokenName",
-									"value": "AccessToken",
-									"type": "string"
-								},
-								{
-									"key": "state",
-									"value": "2fc61105-40ba-4b5f-8983-ec764ec4e437",
-									"type": "string"
-								},
-								{
-									"key": "useBrowser",
-									"value": true,
-									"type": "boolean"
-								},
-								{
-									"key": "addTokenTo",
-									"value": "header",
-									"type": "string"
-								}
-							]
+							"oauth2": {
+								"client_authentication": "header",
+								"scope": "openid USER ADMIN",
+								"clientSecret": "VxubZgAXyyTq9lGjj3qGvWNsHtE4SqTq",
+								"clientId": "eazybankapi",
+								"accessTokenUrl": "http://localhost:9000/oauth2/token",
+								"grant_type": "client_credentials",
+								"challengeAlgorithm": "S256",
+								"authUrl": "http://localhost:8180/realms/eazybankdev/protocol/openid-connect/auth",
+								"tokenName": "AccessToken",
+								"state": "2fc61105-40ba-4b5f-8983-ec764ec4e437",
+								"useBrowser": true,
+								"addTokenTo": "header"
+							}
 						},
 						"method": "GET",
 						"header": [
@@ -3429,12 +2392,7 @@
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "/notices",
-							"path": [
-								"notices"
-							]
-						}
+						"url": "/notices"
 					},
 					"response": []
 				},
@@ -3460,12 +2418,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "/contact",
-							"path": [
-								"contact"
-							]
-						}
+						"url": "/contact"
 					},
 					"response": []
 				}

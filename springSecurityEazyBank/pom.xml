@@ -12,8 +12,8 @@
         <module>5eazyBankMethodLevelSecurity</module>
         <module>6eazyBankOAuthGitHub</module>
         <module>7eazyBankKeyCloak</module>
-        <module>eazyBankJWTRequestBody</module>
         <module>authServer</module>
+        <module>resourceServer</module>
     </modules>
 
     <parent>
