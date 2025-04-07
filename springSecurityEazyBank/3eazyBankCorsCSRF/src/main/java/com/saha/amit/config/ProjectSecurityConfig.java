@@ -41,6 +41,7 @@ public class ProjectSecurityConfig {
         log.info("ProjectSecurityProdConfig");
         CsrfTokenRequestAttributeHandler csrfTokenRequestAttributeHandler = new CsrfTokenRequestAttributeHandler();
         http.securityContext(contextConfig -> contextConfig.requireExplicitSave(false))
+                // .requiresChannel(rcc -> rcc.anyRequest().requiresSecure()) // Only HTTPS
                 .sessionManagement(sessionConfig -> sessionConfig.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .cors(corsConfig -> corsConfig.configurationSource(new CorsConfigurationSource() {
                     @Override
@@ -54,7 +55,6 @@ public class ProjectSecurityConfig {
                         return config;
                     }
                 }))
-                // .requiresChannel(rcc -> rcc.anyRequest().requiresSecure()) // Only HTTPS
                 .csrf(csrfConfig -> csrfConfig.csrfTokenRequestHandler(csrfTokenRequestAttributeHandler)
                         .ignoringRequestMatchers("/register", "/h2-console/**","/contact")
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
@@ -77,7 +77,7 @@ public class ProjectSecurityConfig {
                 .headers(headers -> headers.frameOptions().sameOrigin()) // Allow H2 console in an iframe
                 .formLogin(withDefaults())
                 .httpBasic(hbc -> hbc.authenticationEntryPoint(new CustomBasicAuthenticationEntryPoint()))
-                .exceptionHandling(ehc -> ehc.accessDeniedHandler(new CustomAccessDeniedHandler()));
+                .exceptionHandling(ehc -> ehc.accessDeniedHandler(new CustomAccessDeniedHandler()));  // Global exceptional handling
         return http.build();
     }
     @Bean

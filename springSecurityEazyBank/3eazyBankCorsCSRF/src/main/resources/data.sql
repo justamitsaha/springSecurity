@@ -1,10 +1,10 @@
 
 -- Insert into customer table
 INSERT INTO customer (name, email, mobile_number, pwd, role, create_dt)
-VALUES ('Happy', 'happy@example.com', '5334122365', '{bcrypt}$2a$12$66470DSU6DCXXqMiEadhtO60F1FFU0svn96szTKa.0saPPIKLaHbO', 'admin', CURRENT_DATE);
+VALUES ('Happy', 'happy@example.com', '5334122365', '{bcrypt}$2a$12$n4Yxivd0ZECKu/Axy3mE2OrgiWTtk1Q9/ksFP/FR.hjVuBkahpZ/O', 'admin', CURRENT_DATE);
 
 INSERT INTO customer (name, email, mobile_number, pwd, role, create_dt)
-VALUES ('Sad', 'sad@example.com', '5334122366', '{bcrypt}$2a$12$66470DSU6DCXXqMiEadhtO60F1FFU0svn96szTKa.0saPPIKLaHbO', 'admin', CURRENT_DATE);
+VALUES ('Sad', 'sad@example.com', '5334122366', '{bcrypt}$2a$12$n4Yxivd0ZECKu/Axy3mE2OrgiWTtk1Q9/ksFP/FR.hjVuBkahpZ/O', 'admin', CURRENT_DATE);
 
 
 --Insert into authorities

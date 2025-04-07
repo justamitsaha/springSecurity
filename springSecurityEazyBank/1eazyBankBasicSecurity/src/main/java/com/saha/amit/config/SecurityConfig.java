@@ -49,7 +49,7 @@ public class SecurityConfig {
     @Bean
     //public UserDetailsManager userDetailsService() { This has additional API for create user, reset pwd etc.
     public UserDetailsService userDetailsService() {
-        UserDetails admin = User.withUsername("admin").password("{noop}12345").roles("ADMIN").build();
+        UserDetails admin = User.withUsername("admin").password("{noop}erQu773__").roles("ADMIN").build();
         //https://bcrypt-generator.com/
         UserDetails user = User.withUsername("user").password("{bcrypt}$2a$12$HknEwKGJto6O4zTn0pSA6.L9OX2wDEa3beQpN3W5XKrbNCipR0eTm")
                 .roles("USER").build();
