@@ -1,0 +1,64 @@
+<html>
+<head>
+    <title>Custom Login</title>
+    <script>
+                            window.onload = function() {
+                                // Show JSESSIONID if available
+                                const cookies = document.cookie.split(';');
+                                const sessionCookie = cookies.find(c => c.trim().startsWith('JSESSIONID='));
+                                if (sessionCookie) {
+                                    const sessionId = sessionCookie.split('=')[1];
+                                    document.getElementById('sessionIdDisplay').innerText = sessionId;
+                                } else {
+                                    document.getElementById('sessionIdDisplay').innerText = 'No session';
+                                }
+
+                                // Check URL params for error or logout
+                                const urlParams = new URLSearchParams(window.location.search);
+                                if (urlParams.has('error')) {
+                                    document.getElementById('status').innerText = '❌ Login failed. Please try again.';
+                                    document.getElementById('status').style.color = 'red';
+                                }
+                                if (urlParams.has('logout')) {
+                                    document.getElementById('status').innerText = '✅ You have been logged out.';
+                                    document.getElementById('status').style.color = 'green';
+                                }
+                            };
+
+                            function clearSession() {
+                                document.cookie = "JSESSIONID=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+                                document.getElementById('sessionIdDisplay').innerText = 'Session Cleared';
+                            }
+
+    </script>
+</head>
+<body>
+<h2>Login Page</h2>
+
+<!-- This form mimics Spring's default login page -->
+<form method="POST" action="/login">
+    <label>Username:</label>
+    <input type="text" name="username" required><br>
+
+    <label>Password:</label>
+    <input type="password" name="password" required><br><br>
+
+    <button type="submit">Login</button>
+</form>
+
+<p id="status"></p>
+
+<h3>Session Info</h3>
+<p>JSESSIONID: <span id="sessionIdDisplay"></span></p>
+<button onclick="clearSession()">Clear JSESSIONID</button>
+
+<hr>
+
+<a href='/public/home'>HOME</a> <br>
+<a href='/public/contact'>CONTACT</a> <br>
+<a href='/private/balance'>BALANCE</a> <br>
+<a href='/private/message'>MESSAGE</a> <br>
+<a href='/admin/announcement'>ANNOUNCEMENT</a> <br>
+<a href='/admin/loan'>LOAN</a> <br>
+</body>
+</html>

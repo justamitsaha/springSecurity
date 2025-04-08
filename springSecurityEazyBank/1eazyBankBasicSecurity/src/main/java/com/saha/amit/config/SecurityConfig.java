@@ -2,6 +2,7 @@ package com.saha.amit.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.password.CompromisedPasswordChecker;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -27,21 +28,28 @@ public class SecurityConfig {
     ProviderManager(UsernamePasswordAuthenticationToken)  implements --> AuthenticationManager
     DaoAuthenticationProvider. -->So whenever we are using the default authentication provider as a developer, our responsibility is only to load the user details from the storage system
     like database and configure what is a password and code that we want to use.
+    //.formLogin(fl->fl.disable())      //When this is disabled instead of showing login form browser shows popup to read credentials and add to header
+    //.httpBasic(bs->bs.disable())
+    //.formLogin(Customizer.withDefaults())          //Enable form based login, credentials will be extracted from UsernamePasswordAuthenticationFilter
      */
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> authorizationManagerRequestMatcherRegistry
-                        //.anyRequest().permitAll()
-                        //.anyRequest().authenticated()
-                        //.anyRequest().denyAll()
-                        .requestMatchers("/private/balance", "private/message", "/admin/announcement", "/admin/loan").authenticated()
-                        .requestMatchers("/public/home", "/public/contact", "/error").permitAll()
+                        .requestMatchers("/favicon.ico", "/css/**", "/js/**", "/images/**","/public/home.html").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/login").permitAll()
+                        .requestMatchers("/private/balance", "/private/message", "/admin/announcement", "/admin/loan").authenticated()
+                        .requestMatchers("/public/home", "/public/contact", "/error", "/public/myLogin").permitAll()
                 )
-                //.formLogin(fl->fl.disable())      //When this is disabled instead of showing login form browser shows popup to read credentials and add to header
-                //.httpBasic(bs->bs.disable())
-                .formLogin(Customizer.withDefaults())          //Enable form based login, credentials will be extracted from UsernamePasswordAuthenticationFilter
-                .httpBasic(Customizer.withDefaults());          //credentials inside the httpRequest header by Base64 encoding them, BasicAuthenticationFilter
+                .formLogin(form -> form
+                        .loginPage("/public/myLogin")   // <--- TELL SPRING TO USE THIS PAGE
+                        .loginProcessingUrl("/login") // where the form posts to
+                        .defaultSuccessUrl("/public/home.html", true) // optional: redirect after login
+                        .failureUrl("/public/myLogin?error")     // optional: redirect on failure
+                        .permitAll()
+                )
+                .httpBasic(Customizer.withDefaults())          //credentials inside the httpRequest header by Base64 encoding them, BasicAuthenticationFilter
+                .csrf(csrf -> csrf.disable());
         return http.build();
     }
 
@@ -49,9 +57,9 @@ public class SecurityConfig {
     @Bean
     //public UserDetailsManager userDetailsService() { This has additional API for create user, reset pwd etc.
     public UserDetailsService userDetailsService() {
-        UserDetails admin = User.withUsername("admin").password("{noop}erQu773__").roles("ADMIN").build();
-        //https://bcrypt-generator.com/
-        UserDetails user = User.withUsername("user").password("{bcrypt}$2a$12$HknEwKGJto6O4zTn0pSA6.L9OX2wDEa3beQpN3W5XKrbNCipR0eTm")
+        UserDetails admin = User.withUsername("admin").password("{noop}Ghd__reb").roles("ADMIN").build();
+        //https://bcrypt-generator.com/  asd__asd
+        UserDetails user = User.withUsername("user").password("{bcrypt}$2a$12$goSiFgLDT7UP9iVOh5nPWe4Riah20ujHbsjv0c9MtPdYdgoszv/.G")
                 .roles("USER").build();
         return new InMemoryUserDetailsManager(admin, user);
     }
