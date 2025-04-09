@@ -1,21 +1,35 @@
 package com.saha.amit.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
 
 @RestController
 public class MainController {
 
+    @GetMapping("public/me")
+    public ResponseEntity<?> getUserDetails(Authentication authentication) {
+        if (authentication != null && authentication.isAuthenticated()) {
+            System.out.println(authentication.getName());
+            return ResponseEntity.ok(Map.of("username", authentication.getName()));
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Not logged in");
+        }
+    }
+
 
     @GetMapping("public/home")
     public String getHome() {
-        return getPage() + "WELCOME HOME";
+        return "WELCOME HOME";
     }
 
     @GetMapping("public/contact")
     public String contact() {
-        return getPage() + "CONTACT US";
+        return "CONTACT US";
     }
 
     @GetMapping("public/myLogin")
@@ -26,22 +40,22 @@ public class MainController {
 
     @GetMapping("private/balance")
     public String account() {
-        return getPage() + "YOUR BALANCE IS $1000";
+        return "YOUR BALANCE IS $1000";
     }
 
     @GetMapping("private/message")
     public String messages() {
-        return getPage() + "YOU HAVE 99 MESSAGES";
+        return "YOU HAVE 99 MESSAGES";
     }
 
     @GetMapping("admin/announcement")
     public String announcement() {
-        return getPage() + "ATTENTION EVERYONE!";
+        return "ATTENTION EVERYONE!";
     }
 
     @GetMapping("admin/loan")
     public String approveLoan() {
-        return getPage() + "WANT TO APPROVE THIS?";
+        return "WANT TO APPROVE THIS?";
     }
 
     public static String getPage() {

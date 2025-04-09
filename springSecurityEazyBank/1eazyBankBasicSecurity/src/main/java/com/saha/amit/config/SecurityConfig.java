@@ -39,7 +39,7 @@ public class SecurityConfig {
                         .requestMatchers("/favicon.ico", "/css/**", "/js/**", "/images/**","/public/home.html").permitAll()
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
                         .requestMatchers("/private/balance", "/private/message", "/admin/announcement", "/admin/loan").authenticated()
-                        .requestMatchers("/public/home", "/public/contact", "/error", "/public/myLogin").permitAll()
+                        .requestMatchers("/public/home", "/public/contact", "/error", "/public/myLogin","/public/me").permitAll()
                 )
                 .formLogin(form -> form
                         .loginPage("/public/myLogin")   // <--- TELL SPRING TO USE THIS PAGE
@@ -58,7 +58,7 @@ public class SecurityConfig {
     //public UserDetailsManager userDetailsService() { This has additional API for create user, reset pwd etc.
     public UserDetailsService userDetailsService() {
         UserDetails admin = User.withUsername("admin").password("{noop}Ghd__reb").roles("ADMIN").build();
-        //https://bcrypt-generator.com/  asd__asd
+        //https://bcrypt-generator.com/  Ghd__reb
         UserDetails user = User.withUsername("user").password("{bcrypt}$2a$12$goSiFgLDT7UP9iVOh5nPWe4Riah20ujHbsjv0c9MtPdYdgoszv/.G")
                 .roles("USER").build();
         return new InMemoryUserDetailsManager(admin, user);
