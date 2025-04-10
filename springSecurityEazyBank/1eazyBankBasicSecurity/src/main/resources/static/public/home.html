@@ -1,61 +1,44 @@
+<!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Custom Login</title>
-    <script>
-        window.onload = function () {
-            // Check login status
-            fetch('/public/me')
-                .then(res => res.ok ? res.json() : Promise.reject())
-                .then(data => {
-                    document.getElementById('loginStatus').innerText = `✅ Logged in as: ${data.username}`;
-                })
-                .catch(() => {
-                    document.getElementById('loginStatus').innerText = '❌ Not logged in';
-                });
-
-            // Handle error and logout messages
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.has('error')) {
-                document.getElementById('status').innerText = '❌ Login failed. Please try again.';
-                document.getElementById('status').style.color = 'red';
-            }
-            if (urlParams.has('logout')) {
-                document.getElementById('status').innerText = '✅ You have been logged out.';
-                document.getElementById('status').style.color = 'green';
-            }
-
-            // Dropdown change handler
-            document.getElementById('apiDropdown').addEventListener('change', function () {
-                const selectedPath = this.value;
-                if (selectedPath) {
-                    fetch(selectedPath)
-                        .then(res => res.text())
-                        .then(data => {
-                            document.getElementById('apiResponse').innerText = data;
-                        })
-                        .catch(err => {
-                            document.getElementById('apiResponse').innerText = '❌ Error fetching API.';
-                        });
-                } else {
-                    document.getElementById('apiResponse').innerText = '';
-                }
-            });
-        };
-    </script>
+    <link rel="stylesheet" href="style.css">
+    <script src="main.js"></script>
 </head>
 <body>
 <h2>Login Page</h2>
 
-<!-- This form mimics Spring's default login page -->
-<form method="POST" action="/login">
-    <label>Username:</label>
-    <input type="text" name="username" required><br>
+<div class="forms-container">
+    <!-- Default Spring Security form login -->
+    <div class="form-wrapper">
+        <h3>Form Login</h3>
+        <form method="POST" action="/login">
+            <label>Username:</label>
+            <input type="text" name="username" required><br>
 
-    <label>Password:</label>
-    <input type="password" name="password" required><br><br>
+            <label>Password:</label>
+            <input type="password" name="password" required><br><br>
 
-    <button type="submit">Login</button>
-</form>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <!-- JSON Login -->
+    <div class="form-wrapper">
+        <h3>JSON Login</h3>
+        <div class="json-form">
+            <label>Username:</label>
+            <input type="text" id="jsonUsername"><br>
+
+            <label>Password:</label>
+            <input type="password" id="jsonPassword"><br><br>
+
+            <button id="jsonLoginBtn">Login with JSON</button>
+        </div>
+        <p id="jsonLoginStatus"></p>
+    </div>
+</div>
 
 <p id="status"></p>
 
@@ -76,7 +59,33 @@
 </select>
 
 <h3>API Response:</h3>
-<pre id="apiResponse" style="background:#f0f0f0;padding:10px;"></pre>
+<pre id="apiResponse"></pre>
 
+<table>
+    <thead>
+    <tr>
+        <th>Scenario</th>
+        <th>Cookie Sent?</th>
+        <th>Reason</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Form login + same-origin fetch</td>
+        <td><span class="check">✅ Yes</span></td>
+        <td>Browser auto-includes cookies for same-origin</td>
+    </tr>
+    <tr>
+        <td>JSON login + same-origin fetch (no credentials)</td>
+        <td><span class="cross">❌ No</span></td>
+        <td>Cookies are not sent unless you use credentials: 'include'</td>
+    </tr>
+    <tr>
+        <td>JSON login + same-origin fetch (credentials: 'include')</td>
+        <td><span class="check">✅ Yes</span></td>
+        <td>You told fetch to include cookies</td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>
