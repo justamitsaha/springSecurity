@@ -62,4 +62,21 @@ window.onload = function () {
                 document.getElementById('jsonLoginStatus').innerText = '❌ Login failed';
             });
     });
+
+     function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        window.onload = function () {
+            const secureToken = getCookie("SECURE_TOKEN");
+            const plainSession = getCookie("PLAIN_SESSION_ID");
+
+            document.getElementById("secureCookieDisplay").innerText =
+                secureToken ? `✅ Secure Cookie: ${secureToken}` : "❌ Secure Cookie not found";
+
+            document.getElementById("plainCookieDisplay").innerText =
+                plainSession ? `✅ Plain Cookie: ${plainSession}` : "❌ Plain Cookie not found";
+        };
 };

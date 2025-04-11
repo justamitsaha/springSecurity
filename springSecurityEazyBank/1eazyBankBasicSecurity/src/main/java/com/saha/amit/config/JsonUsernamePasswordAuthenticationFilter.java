@@ -3,6 +3,7 @@ package com.saha.amit.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.MediaType;
@@ -61,12 +62,30 @@ public class JsonUsernamePasswordAuthenticationFilter extends UsernamePasswordAu
                 context
         );
 
-        // Optionally continue filter chain or skip it
-        // chain.doFilter(request, response); // optional
+        // --- Add cookies ---
+
+        // Secure, HttpOnly cookie (server-only)
+        Cookie secureCookie = new Cookie("SECURE_TOKEN", "secure-value-12345");
+        secureCookie.setHttpOnly(true);        // JS can't access
+        secureCookie.setSecure(true);          // Only sent over HTTPS
+        secureCookie.setPath("/");             // Available to entire app
+        secureCookie.setMaxAge(3600);          // 1 hour
+        response.addCookie(secureCookie);
+
+        // Plain, JS-readable cookie
+        Cookie plainCookie = new Cookie("PLAIN_SESSION_ID", "visible-value-abcde");
+        plainCookie.setHttpOnly(false);        // JS can access
+        plainCookie.setSecure(false);          // OK for HTTP (dev env)
+        plainCookie.setPath("/");
+        plainCookie.setMaxAge(3600);
+        response.addCookie(plainCookie);
 
         // Let the success handler respond (configured in SecurityConfig)
         getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
     }
+
+
+
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
