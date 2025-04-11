@@ -1,92 +1,100 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>Custom Login</title>
     <link rel="stylesheet" href="style.css">
     <script src="main.js"></script>
 </head>
+
 <body>
-<h2>Login Page</h2>
-
-<div class="forms-container">
-    <!-- Default Spring Security form login -->
-    <div class="form-wrapper">
-        <h3>Form Login</h3>
-        <form method="POST" action="/login">
-            <label>Username:</label>
-            <input type="text" name="username" required><br>
-
-            <label>Password:</label>
-            <input type="password" name="password" required><br><br>
-
-            <button type="submit">Login</button>
-        </form>
-    </div>
-
-    <!-- JSON Login -->
-    <div class="form-wrapper">
-        <h3>JSON Login</h3>
-        <div class="json-form">
-            <label>Username:</label>
-            <input type="text" id="jsonUsername"><br>
-
-            <label>Password:</label>
-            <input type="password" id="jsonPassword"><br><br>
-
-            <button id="jsonLoginBtn">Login with JSON</button>
+    <div class="header-container">
+        <h2>Login Page</h2>
+        <div class="status-box">
+            <h3>Login Status</h3>
+            <p id="loginStatus">Checking...</p>
         </div>
-        <p id="jsonLoginStatus"></p>
     </div>
-</div>
 
-<p id="status"></p>
+    <div class="forms-container">
+        <!-- Default Spring Security form login -->
+        <div class="form-wrapper">
+            <h3>Form Login</h3>
+            <form method="POST" action="/login">
+                <label>Username:</label>
+                <input type="text" name="username" required><br>
 
-<h3>Login Status</h3>
-<p id="loginStatus">Checking...</p>
-<div id="secureCookieDisplay"></div>
-<div id="plainCookieDisplay"></div>
-<hr>
+                <label>Password:</label>
+                <input type="password" name="password" required><br><br>
 
-<h3>Choose an API to call:</h3>
-<select id="apiDropdown">
-    <option value="">-- Select an endpoint --</option>
-    <option value="/public/home">🏠 Public Home</option>
-    <option value="/public/contact">📞 Public Contact</option>
-    <option value="/private/balance">💰 Private Balance</option>
-    <option value="/private/message">📩 Private Message</option>
-    <option value="/admin/announcement">📢 Admin Announcement</option>
-    <option value="/admin/loan">🏦 Admin Loan</option>
-</select>
+                <button type="submit">Login</button>
+            </form>
+        </div>
 
-<h3>API Response:</h3>
-<pre id="apiResponse"></pre>
+        <!-- JSON Login -->
+        <div class="form-wrapper">
+            <h3>JSON Login</h3>
+            <div class="json-form">
+                <label>Username:</label>
+                <input type="text" id="jsonUsername"><br>
 
-<table>
-    <thead>
-    <tr>
-        <th>Scenario</th>
-        <th>Cookie Sent?</th>
-        <th>Reason</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>Form login + same-origin fetch</td>
-        <td><span class="check">✅ Yes</span></td>
-        <td>Browser auto-includes cookies for same-origin</td>
-    </tr>
-    <tr>
-        <td>JSON login + same-origin fetch (no credentials)</td>
-        <td><span class="cross">❌ No</span></td>
-        <td>Cookies are not sent unless you use credentials: 'include'</td>
-    </tr>
-    <tr>
-        <td>JSON login + same-origin fetch (credentials: 'include')</td>
-        <td><span class="check">✅ Yes</span></td>
-        <td>You told fetch to include cookies</td>
-    </tr>
-    </tbody>
-</table>
+                <label>Password:</label>
+                <input type="password" id="jsonPassword"><br><br>
+
+                <button id="jsonLoginBtn">Login with JSON</button>
+            </div>
+            <p id="jsonLoginStatus"></p>
+            <div> Cookie values after login</div>
+            <div id="secureCookieDisplay"></div>
+            <div id="plainCookieDisplay"></div>
+        </div>
+    </div>
+
+    <p id="status"></p>
+
+
+
+    <h3>Choose an API to call:</h3>
+    <select id="apiDropdown">
+        <option value="">-- Select an endpoint --</option>
+        <option value="/public/home">🏠 Public Home</option>
+        <option value="/public/contact">📞 Public Contact</option>
+        <option value="/private/balance">💰 Private Balance</option>
+        <option value="/private/message">📩 Private Message</option>
+        <option value="/admin/announcement">📢 Admin Announcement</option>
+        <option value="/admin/loan">🏦 Admin Loan</option>
+    </select>
+
+    <h3>API Response:</h3>
+    <pre id="apiResponse"></pre>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Scenario</th>
+                <th>Cookie Sent?</th>
+                <th>Reason</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Form login + same-origin fetch</td>
+                <td><span class="check">✅ Yes</span></td>
+                <td>Browser auto-includes cookies for same-origin</td>
+            </tr>
+            <tr>
+                <td>JSON login + same-origin fetch (no credentials)</td>
+                <td><span class="cross">❌ No</span></td>
+                <td>Cookies are not sent unless you use credentials: 'include'</td>
+            </tr>
+            <tr>
+                <td>JSON login + same-origin fetch (credentials: 'include')</td>
+                <td><span class="check">✅ Yes</span></td>
+                <td>You told fetch to include cookies</td>
+            </tr>
+        </tbody>
+    </table>
 </body>
+
 </html>

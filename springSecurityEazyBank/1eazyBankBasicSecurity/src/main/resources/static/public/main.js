@@ -9,6 +9,15 @@ window.onload = function () {
             document.getElementById('loginStatus').innerText = '❌ Not logged in';
         });
 
+        const secureToken = getCookie("SECURE_TOKEN");
+        const plainSession = getCookie("PLAIN_SESSION_ID");
+
+        document.getElementById("secureCookieDisplay").innerText =
+            secureToken ? `✅ Secure Cookie: ${secureToken}` : "❌ Secure Cookie not found";
+
+        document.getElementById("plainCookieDisplay").innerText =
+            plainSession ? `✅ Plain Cookie: ${plainSession}` : "❌ Plain Cookie not found";
+
     // Handle error and logout messages
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has('error')) {
@@ -57,26 +66,34 @@ window.onload = function () {
             .then(data => {
                 document.getElementById('jsonLoginStatus').innerText = '✅ Login successful';
                 document.getElementById('loginStatus').innerText = `✅ Logged in as: ${username}`;
+                const secureToken = getCookie("SECURE_TOKEN");
+                const plainSession = getCookie("PLAIN_SESSION_ID");
+        
+                document.getElementById("secureCookieDisplay").innerText =
+                    secureToken ? `✅ Secure Cookie: ${secureToken}` : "❌ Secure Cookie not found";
+        
+                document.getElementById("plainCookieDisplay").innerText =
+                    plainSession ? `✅ Plain Cookie: ${plainSession}` : "❌ Plain Cookie not found";
             })
             .catch(err => {
                 document.getElementById('jsonLoginStatus').innerText = '❌ Login failed';
             });
     });
 
-     function getCookie(name) {
-            const value = `; ${document.cookie}`;
-            const parts = value.split(`; ${name}=`);
-            if (parts.length === 2) return parts.pop().split(';').shift();
-        }
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
 
-        window.onload = function () {
-            const secureToken = getCookie("SECURE_TOKEN");
-            const plainSession = getCookie("PLAIN_SESSION_ID");
+    window.onload = function () {
+        const secureToken = getCookie("SECURE_TOKEN");
+        const plainSession = getCookie("PLAIN_SESSION_ID");
 
-            document.getElementById("secureCookieDisplay").innerText =
-                secureToken ? `✅ Secure Cookie: ${secureToken}` : "❌ Secure Cookie not found";
+        document.getElementById("secureCookieDisplay").innerText =
+            secureToken ? `✅ Secure Cookie: ${secureToken}` : "❌ Secure Cookie not found";
 
-            document.getElementById("plainCookieDisplay").innerText =
-                plainSession ? `✅ Plain Cookie: ${plainSession}` : "❌ Plain Cookie not found";
-        };
+        document.getElementById("plainCookieDisplay").innerText =
+            plainSession ? `✅ Plain Cookie: ${plainSession}` : "❌ Plain Cookie not found";
+    };
 };
