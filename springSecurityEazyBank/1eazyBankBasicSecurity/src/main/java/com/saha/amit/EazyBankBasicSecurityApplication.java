@@ -11,7 +11,7 @@ public class EazyBankBasicSecurityApplication {
     public static final Log log = LogFactory.getLog(EazyBankBasicSecurityApplication.class);
 
     public static void main(String[] args) {
-        log.info("http://localhost:8080/public/home");
+        log.info("http://localhost:8080/public/home.html");
         log.info("http://localhost:8080/h2-console/login.do");
         SpringApplication.run(EazyBankBasicSecurityApplication.class, args);
     }

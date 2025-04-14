@@ -47,17 +47,17 @@ public class SecurityConfig {
         DataBaseLoginFilter dbLoginFilter = new DataBaseLoginFilter(dbAuthManager, jwtUtil);
         DataBaseAuthorizationFilter dbAuthorizationFilter = new DataBaseAuthorizationFilter(jwtUtil);
 
-//        jsonAuthFilter.setAuthenticationSuccessHandler((request, response, authentication) -> {
-//            response.setStatus(HttpServletResponse.SC_OK);
-//            response.setContentType("application/json");
-//            response.getWriter().write("{\"message\": \"Login successful JsonUsernamePasswordAuthenticationFilter \"}");
-//        });
-//
-//        jsonAuthFilter.setAuthenticationFailureHandler((request, response, exception) -> {
-//            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-//            response.setContentType("application/json");
-//            response.getWriter().write("{\"message\": \"Login failed JsonUsernamePasswordAuthenticationFilter\"}");
-//        });
+        jsonAuthFilter.setAuthenticationSuccessHandler((request, response, authentication) -> {
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.setContentType("application/json");
+            response.getWriter().write("{\"message\": \"Login successful JsonUsernamePasswordAuthenticationFilter \"}");
+        });
+
+        jsonAuthFilter.setAuthenticationFailureHandler((request, response, exception) -> {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType("application/json");
+            response.getWriter().write("{\"message\": \"Login failed JsonUsernamePasswordAuthenticationFilter\"}");
+        });
 
 
         http.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> authorizationManagerRequestMatcherRegistry

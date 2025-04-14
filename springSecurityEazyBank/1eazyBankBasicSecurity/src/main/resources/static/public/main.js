@@ -4,9 +4,11 @@ window.onload = function () {
         .then(res => res.ok ? res.json() : Promise.reject())
         .then(data => {
             document.getElementById('loginStatus').innerText = `✅ Logged in with username: ${data.username}`;
+            document.getElementById('formLoginStatus').innerText = '✅ Login successful';
         })
         .catch(() => {
             document.getElementById('loginStatus').innerText = '❌ Not logged in';
+            document.getElementById('formLoginStatus').innerText = '❌ Login failed';
         });
 
     const secureToken = getCookie("SECURE_TOKEN");
@@ -29,30 +31,7 @@ window.onload = function () {
         document.getElementById('status').style.color = 'green';
     }
 
-    // Dropdown change handler
-    document.getElementById('apiDropdown').addEventListener('change', function () {
-        const selectedPath = this.value;
-        const jwt = localStorage.getItem('jwt');
-        if (selectedPath) {
-            fetch(selectedPath,
-                {
-                    credentials: "include",
-                    headers: {
-                        'Authorization': 'Bearer ' + jwt,
-                        'Content-Type': 'application/json'
-                    }
-                })
-                .then(res => res.text())
-                .then(data => {
-                    document.getElementById('apiResponse').innerText = data;
-                })
-                .catch(err => {
-                    document.getElementById('apiResponse').innerText = '❌ Error fetching API.';
-                });
-        } else {
-            document.getElementById('apiResponse').innerText = '';
-        }
-    });
+
 
     // JSON login handler
     document.getElementById('jsonLoginBtn').addEventListener('click', function () {
@@ -125,10 +104,11 @@ window.onload = function () {
             });
     });
 
+    //DB login 
     document.getElementById('dbLoginBtn').addEventListener('click', function () {
         const username = document.getElementById('dbUsername').value;
         const password = document.getElementById('dbPassword').value;
-    
+
         fetch('/v3/api/login', {
             method: 'POST',
             headers: {
@@ -138,25 +118,25 @@ window.onload = function () {
         })
             .then(res => {
                 if (!res.ok) throw new Error('Login failed');
-    
+
                 // ✅ Get JWT from response header
                 const authHeader = res.headers.get('Authorization');
                 if (authHeader && authHeader.startsWith('Bearer ')) {
                     const token = authHeader.substring(7); // remove "Bearer "
                     localStorage.setItem('jwt', token);
-    
+
                     document.getElementById('dbLoginStatus').innerText = '✅ Login successful';
                     document.getElementById('loginStatus').innerText = `✅ Logged in as: ${username}`;
                 } else {
                     throw new Error('JWT not found in header');
                 }
-    
+
                 const secureToken = getCookie("SECURE_TOKEN");
                 const plainSession = getCookie("PLAIN_SESSION_ID");
-    
+
                 document.getElementById("secureCookieDisplay").innerText =
                     secureToken ? `✅ Secure Cookie: ${secureToken}` : "❌ Secure Cookie not found";
-    
+
                 document.getElementById("plainCookieDisplay").innerText =
                     plainSession ? `✅ Plain Cookie: ${plainSession}` : "❌ Plain Cookie not found";
             })
@@ -165,7 +145,32 @@ window.onload = function () {
                 console.error(err);
             });
     });
-    
+
+
+    // Dropdown change handler
+    document.getElementById('apiDropdown').addEventListener('change', function () {
+        const selectedPath = this.value;
+        const jwt = localStorage.getItem('jwt');
+        if (selectedPath) {
+            fetch(selectedPath,
+                {
+                    credentials: "include",
+                    headers: {
+                        'Authorization': 'Bearer ' + jwt,
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(res => res.text())
+                .then(data => {
+                    document.getElementById('apiResponse').innerText = data;
+                })
+                .catch(err => {
+                    document.getElementById('apiResponse').innerText = '❌ Error fetching API.';
+                });
+        } else {
+            document.getElementById('apiResponse').innerText = '';
+        }
+    });
 
 
     function getCookie(name) {

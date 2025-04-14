@@ -81,9 +81,6 @@ public class JsonUsernamePasswordAuthenticationFilter extends UsernamePasswordAu
 
         // Let the success handler respond (configured in SecurityConfig)
         getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
-        response.setStatus(HttpServletResponse.SC_OK);
-        response.setContentType("application/json");
-        response.getWriter().write("{\"message\": \"Login successful JsonUsernamePasswordAuthenticationFilter \"}");
     }
 
 
@@ -94,9 +91,6 @@ public class JsonUsernamePasswordAuthenticationFilter extends UsernamePasswordAu
                                               AuthenticationException failed) throws IOException, ServletException {
         // Let the failure handler respond (configured in SecurityConfig)
         getFailureHandler().onAuthenticationFailure(request, response, failed);
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        response.setContentType("application/json");
-        response.getWriter().write("{\"message\": \"Login failed JsonUsernamePasswordAuthenticationFilter\"}");
     }
 
 }
