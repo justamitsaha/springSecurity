@@ -45,11 +45,47 @@
                 <button id="jsonLoginBtn">Login with JSON</button>
             </div>
             <p id="jsonLoginStatus"></p>
-            <div> Cookie values after login</div>
-            <div id="secureCookieDisplay"></div>
-            <div id="plainCookieDisplay"></div>
+        </div>
+
+        <!-- JWT Login -->
+        <div class="form-wrapper">
+            <h3>JTW Login</h3>
+            <div class="json-form">
+                <label>Username:</label>
+                <input type="text" id="jwtUsername"><br>
+
+                <label>Password:</label>
+                <input type="password" id="jwtPassword"><br><br>
+
+                <button id="jwtLoginBtn">Login with JSON</button>
+            </div>
+            <p id="jwtLoginStatus"></p>
         </div>
     </div>
+
+    <!-- DB Age-Based Login - Now in a separate forms-container -->
+    <div class="forms-container">
+        <div class="form-wrapper">
+            <h3>DB Login (Age > 18)</h3>
+            <div class="db-form">
+                <label>Username:</label>
+                <input type="text" id="dbUsername"><br>
+
+                <label>Password:</label>
+                <input type="password" id="dbPassword"><br><br>
+
+                <button id="dbLoginBtn">Login with DB</button>
+            </div>
+            <p id="dbLoginStatus"></p>
+        </div>
+    </div>
+
+    <div class="forms-container">
+        <div> Cookie values after login</div>
+        <div id="secureCookieDisplay"></div>
+        <div id="plainCookieDisplay"></div>
+    </div>
+
 
     <p id="status"></p>
 

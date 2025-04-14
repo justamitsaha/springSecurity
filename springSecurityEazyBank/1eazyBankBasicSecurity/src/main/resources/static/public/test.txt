@@ -41,7 +41,7 @@ This tells Spring Security that all users (even unauthenticated ones) are allowe
 
 Without this, Spring might block access to your login form itself, creating a redirect loop.
 
-
+<--------------------------------------------------------->
 
 Great question — you're seeing a login popup (browser dialog box) when accessing protected URLs like /private/balance because of this line in your configuration:
 
@@ -90,3 +90,54 @@ You want to support programmatic login using headers instead of forms or JSON.
 But for browser users, it’s better UX to stick with formLogin() or your JSON-based login filter.
 
 Let me know if you want both API + browser login to work side by side — it’s doable with a few tweaks!
+
+<----------------------------------------------------->
+
+Should I send JWT in the response body instead of header?
+Option A: Send JWT in Header (current approach)
+http
+Copy
+Edit
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR...
+Pros:
+
+✅ Simple to implement
+
+✅ Standard practice for SPAs or mobile apps
+
+✅ Works well with Authorization header for subsequent API calls
+
+Cons:
+
+❌ Cannot easily inspect the token in browser dev tools (unless intercepted)
+
+❌ Less flexible if you want to return additional metadata (like user info)
+
+Option B: Send JWT in Response Body
+json
+Copy
+Edit
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR...",
+  "username": "amit",
+  "roles": ["USER"],
+  "age": 25
+}
+Pros:
+
+✅ Easier to inspect in dev tools or Postman
+
+✅ Lets you return additional info (age, roles, login success message, etc.)
+
+✅ More frontend-friendly (esp. for React, Angular, etc.)
+
+Cons:
+
+❌ Client needs to extract and manually store the token (e.g., in localStorage or memory)
+
+❌ You have to ensure token is sent as a Bearer token in the Authorization header for future API calls
+
+✅ Recommendation
+If you're building an API-first app (e.g., frontend in React/Vue/Angular): send JWT in the response body
+
+If it's a strict backend-to-backend app or you're following minimal REST conventions: use the header
