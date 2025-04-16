@@ -29,7 +29,7 @@ public class JwtUtil {
 
     public String generateToken(String username, List<String> authorities) {
         return Jwts.builder()
-                .setIssuer("Eazy Bank")
+                .setIssuer("AmitSaha")
                 .setSubject("JWT Token")
                 .claim("username", username)
                 .claim("authorities", authorities)
@@ -42,7 +42,7 @@ public class JwtUtil {
     // Overloaded method with optional age
     public String generateToken(String username, List<String> authorities, Integer age) {
         JwtBuilder builder = Jwts.builder()
-                .setIssuer("Eazy Bank")
+                .setIssuer("AmitSaha")
                 .setSubject("JWT Token")
                 .claim("username", username)
                 .claim("authorities", authorities)

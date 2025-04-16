@@ -1,11 +1,15 @@
 package com.saha.amit.dto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /*
@@ -16,6 +20,9 @@ Here we are using the Entity table as UserDetails but we should avoid this
 4. Hibernate Lazy Initialization Issues (if using entity)
 
  */
+
+@Getter
+@Setter
 @Entity
 @Table(name = "custom_user")
 public class CustomUser implements UserDetails {
@@ -34,14 +41,20 @@ public class CustomUser implements UserDetails {
 
     private String roles; // comma-separated, e.g., "USER,ADMIN"
 
+    @JsonIgnore
+    @OneToMany(mappedBy="customer",fetch=FetchType.EAGER)
+    private Set<Authority> authorities;
+
     // --- UserDetails Methods ---
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.stream(roles.split(","))
-                .map(String::trim)
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+//        return Arrays.stream(roles.split(","))
+//                .map(String::trim)
+//                .map(SimpleGrantedAuthority::new)
+//                .collect(Collectors.toList());
+
+        return authorities;
     }
 
     @Override
@@ -75,38 +88,6 @@ public class CustomUser implements UserDetails {
     }
 
     // --- Custom Fields ---
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getRoles() {
-        return roles;
-    }
-
-    public void setRoles(String roles) {
-        this.roles = roles;
-    }
 }
 
 

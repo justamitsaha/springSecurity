@@ -14,6 +14,7 @@
         <module>7eazyBankKeyCloak</module>
         <module>authServer</module>
         <module>resourceServer</module>
+        <module>jwtStandAlone</module>
     </modules>
 
     <parent>

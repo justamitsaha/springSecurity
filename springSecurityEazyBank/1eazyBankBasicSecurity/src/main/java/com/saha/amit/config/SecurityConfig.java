@@ -3,6 +3,7 @@ package com.saha.amit.config;
 import com.saha.amit.filter.*;
 import com.saha.amit.service.CustomUserDetailsService;
 import com.saha.amit.util.JwtUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -26,7 +27,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Configuration
@@ -37,7 +42,7 @@ public class SecurityConfig {
     private CustomUserDetailsService customUserDetailsService;
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http ,
+    SecurityFilterChain securityFilterChain(HttpSecurity http,
                                             @Qualifier("defaultAuthenticationManager") AuthenticationManager defaultAuthManager,
                                             @Qualifier("dbAuthManager") AuthenticationManager dbAuthManager,
                                             JwtUtil jwtUtil) throws Exception {
@@ -61,11 +66,24 @@ public class SecurityConfig {
 
 
         http.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> authorizationManagerRequestMatcherRegistry
-                        .requestMatchers("/favicon.ico", "/public/style.css", "/public/main.js", "/images/**","/public/home.html", "/h2-console/**").permitAll()
+                        .requestMatchers("/favicon.ico", "/public/style.css", "/public/main.js", "/images/**", "/public/home.html", "/h2-console/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/v1/api/login", "/v2/api/login", "/v3/api/login").permitAll()
-                        .requestMatchers("/private/balance", "/private/message", "/admin/announcement", "/admin/loan").authenticated()
-                        .requestMatchers("/public/home", "/public/contact", "/error", "/public/myLogin","/public/me").permitAll()
-                )
+                        .requestMatchers("/admin/announcement").authenticated()
+                        .requestMatchers("/private/balance", "/private/message").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/admin/loan").hasRole("ADMIN")
+                        .requestMatchers("/public/home", "/public/contact", "/error", "/public/myLogin", "/public/me").permitAll()
+                ).cors(corsConfig -> corsConfig.configurationSource(new CorsConfigurationSource() {
+                    @Override
+                    public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
+                        CorsConfiguration config = new CorsConfiguration();
+                        config.setAllowedOrigins(Collections.singletonList("http://localhost"));
+                        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+                        config.setAllowCredentials(true);
+                        config.setAllowedHeaders(Collections.singletonList("*"));
+                        config.setMaxAge(3600L);
+                        return config;
+                    }
+                }))
                 .formLogin(form -> form
                         .loginPage("/public/home.html")
                         .loginProcessingUrl("/login")
@@ -73,6 +91,7 @@ public class SecurityConfig {
                         .failureUrl("/public/home.html?error")
                         .permitAll()
                 )
+                //.requiresChannel(rcc -> rcc.anyRequest().requiresSecure()) // Only HTTPS
                 .authenticationManager(defaultAuthManager) // ✅ Forces form login to use in-memory auth only
                 .headers(headers -> headers.frameOptions(frame -> frame.disable())) // ✅ for H2 frames
                 .csrf(csrf -> csrf.disable())                                        // ✅ for H2 POSTs
@@ -91,7 +110,7 @@ public class SecurityConfig {
     //public UserDetailsManager userDetailsService() { This has additional API for create user, reset pwd etc.
     public UserDetailsService userDetailsService() {
         UserDetails admin = User.withUsername("admin").password("{noop}qwerty").roles("ADMIN").build();
-        UserDetails user = User.withUsername("user").password("{bcrypt}$2a$12$G2mI8xcwWVLfpkW9r.sz.OaKPoSQWc4cpM5gfP7JVe3ZAY7h9k.q2")
+        UserDetails user = User.withUsername("user").password("{bcrypt}$2a$12$h0qbEfY3fK8Xz4CIpuDHM.MdrkSVeKx8AodPaX5McnAirmbevL/gi")
                 .roles("USER").build();     //https://bcrypt-generator.com/  qwerty
         return new InMemoryUserDetailsManager(admin, user);
     }
