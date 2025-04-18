@@ -9,129 +9,130 @@
 </head>
 
 <body>
-    <div class="header-container">
-        <h2>Login Page</h2>
-        <div class="status-box">
-            <h3>Login Status</h3>
-            <p id="loginStatus">Checking...</p>
-        </div>
+<div class="header-container">
+    <h2>Login Page</h2>
+    <div class="status-box">
+        <h3>Login Status</h3>
+        <p id="loginStatus">Checking...</p>
+    </div>
+</div>
+
+<div class="forms-container">
+    <!-- Default Spring Security form login -->
+    <div class="form-wrapper">
+        <h3>Form Login</h3>
+        <div>JSESSIONID set in cookie</div>
+        <form method="POST" action="/login">
+            <label>Username:</label>
+            <input type="text" name="username" required><br>
+
+            <label>Password:</label>
+            <input type="password" name="password" required><br><br>
+
+            <button type="submit">Login</button>
+        </form>
+        <p id="formLoginStatus"></p>
     </div>
 
-    <div class="forms-container">
-        <!-- Default Spring Security form login -->
-        <div class="form-wrapper">
-            <h3>Form Login</h3>
-            <form method="POST" action="/login">
-                <label>Username:</label>
-                <input type="text" name="username" required><br>
+    <!-- JSON Login -->
+    <div class="form-wrapper">
+        <h3>JSON Login</h3>
+        <div class="json-form">
+            <label>Username:</label>
+            <input type="text" id="jsonUsername"><br>
 
-                <label>Password:</label>
-                <input type="password" name="password" required><br><br>
+            <label>Password:</label>
+            <input type="password" id="jsonPassword"><br><br>
 
-                <button type="submit">Login</button>
-            </form>
-            <p id="formLoginStatus"></p>
+            <button id="jsonLoginBtn">Login with JSON</button>
         </div>
-
-        <!-- JSON Login -->
-        <div class="form-wrapper">
-            <h3>JSON Login</h3>
-            <div class="json-form">
-                <label>Username:</label>
-                <input type="text" id="jsonUsername"><br>
-
-                <label>Password:</label>
-                <input type="password" id="jsonPassword"><br><br>
-
-                <button id="jsonLoginBtn">Login with JSON</button>
-            </div>
-            <p id="jsonLoginStatus"></p>
-        </div>
-
-        <!-- JWT Login -->
-        <div class="form-wrapper">
-            <h3>JTW Login</h3>
-            <div class="json-form">
-                <label>Username:</label>
-                <input type="text" id="jwtUsername"><br>
-
-                <label>Password:</label>
-                <input type="password" id="jwtPassword"><br><br>
-
-                <button id="jwtLoginBtn">Login with JSON</button>
-            </div>
-            <p id="jwtLoginStatus"></p>
-        </div>
+        <p id="jsonLoginStatus"></p>
     </div>
 
-    <!-- DB Age-Based Login - Now in a separate forms-container -->
-    <div class="forms-container">
-        <div class="form-wrapper">
-            <h3>DB Login (Age > 18)</h3>
-            <div class="db-form">
-                <label>Username:</label>
-                <input type="text" id="dbUsername"><br>
+    <!-- JWT Login -->
+    <div class="form-wrapper">
+        <h3>JTW Login</h3>
+        <div class="json-form">
+            <label>Username:</label>
+            <input type="text" id="jwtUsername"><br>
 
-                <label>Password:</label>
-                <input type="password" id="dbPassword"><br><br>
+            <label>Password:</label>
+            <input type="password" id="jwtPassword"><br><br>
 
-                <button id="dbLoginBtn">Login with DB</button>
-            </div>
-            <p id="dbLoginStatus"></p>
+            <button id="jwtLoginBtn">Login with JSON</button>
         </div>
+        <p id="jwtLoginStatus"></p>
     </div>
+</div>
 
-    <div class="forms-container">
-        <div> Cookie values after login</div>
-        <div id="secureCookieDisplay"></div>
-        <div id="plainCookieDisplay"></div>
+<!-- DB Age-Based Login - Now in a separate forms-container -->
+<div class="forms-container">
+    <div class="form-wrapper">
+        <h3>DB Login (Age > 18)</h3>
+        <div class="db-form">
+            <label>Username:</label>
+            <input type="text" id="dbUsername"><br>
+
+            <label>Password:</label>
+            <input type="password" id="dbPassword"><br><br>
+
+            <button id="dbLoginBtn">Login with DB</button>
+        </div>
+        <p id="dbLoginStatus"></p>
     </div>
+</div>
+
+<div class="forms-container">
+    <div> Cookie values after login</div>
+    <div id="secureCookieDisplay"></div>
+    <div id="plainCookieDisplay"></div>
+</div>
 
 
-    <p id="status"></p>
+<p id="status"></p>
 
 
 
-    <h3>Choose an API to call:</h3>
-    <select id="apiDropdown">
-        <option value="">-- Select an endpoint --</option>
-        <option value="/public/home">🏠 Public Home</option>
-        <option value="/public/contact">📞 Public Contact</option>
-        <option value="/private/balance">💰 Private Balance</option>
-        <option value="/private/message">📩 Private Message</option>
-        <option value="/admin/announcement">📢 Admin Announcement</option>
-        <option value="/admin/loan">🏦 Admin Loan</option>
-    </select>
+<h3>Choose an API to call:</h3>
+<select id="apiDropdown">
+    <option value="">-- Select an endpoint --</option>
+    <option value="/public/home">🏠 Public Home</option>
+    <option value="/public/contact">📞 Public Contact</option>
+    <option value="/private/balance">💰 Private Balance</option>
+    <option value="/private/message">📩 Private Message</option>
+    <option value="/admin/announcement">📢 Admin Announcement</option>
+    <option value="/admin/loan">🏦 Admin Loan</option>
+</select>
 
-    <h3>API Response:</h3>
-    <pre id="apiResponse"></pre>
+<h3>API Response:</h3>
+<pre id="apiResponse"></pre>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Scenario</th>
-                <th>Cookie Sent?</th>
-                <th>Reason</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Form login + same-origin fetch</td>
-                <td><span class="check">✅ Yes</span></td>
-                <td>Browser auto-includes cookies for same-origin</td>
-            </tr>
-            <tr>
-                <td>JSON login + same-origin fetch (no credentials)</td>
-                <td><span class="cross">❌ No</span></td>
-                <td>Cookies are not sent unless you use credentials: 'include'</td>
-            </tr>
-            <tr>
-                <td>JSON login + same-origin fetch (credentials: 'include')</td>
-                <td><span class="check">✅ Yes</span></td>
-                <td>You told fetch to include cookies</td>
-            </tr>
-        </tbody>
-    </table>
+<table>
+    <thead>
+    <tr>
+        <th>Scenario</th>
+        <th>Cookie Sent?</th>
+        <th>Reason</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Form login + same-origin fetch</td>
+        <td><span class="check">✅ Yes</span></td>
+        <td>Browser auto-includes cookies for same-origin</td>
+    </tr>
+    <tr>
+        <td>JSON login + same-origin fetch (no credentials)</td>
+        <td><span class="cross">❌ No</span></td>
+        <td>Cookies are not sent unless you use credentials: 'include'</td>
+    </tr>
+    <tr>
+        <td>JSON login + same-origin fetch (credentials: 'include')</td>
+        <td><span class="check">✅ Yes</span></td>
+        <td>You told fetch to include cookies</td>
+    </tr>
+    </tbody>
+</table>
 </body>
 
 </html>

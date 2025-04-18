@@ -1,6 +1,11 @@
 window.onload = function () {
-    // Check login status
-    fetch('/public/me')
+
+    //var domain = "http://localhost:8080"
+    var domain = ""
+
+
+    // Check login status after form post login
+    fetch(domain + '/public/me')
         .then(res => res.ok ? res.json() : Promise.reject())
         .then(data => {
             document.getElementById('loginStatus').innerText = `✅ Logged in with username: ${data.username}`;
@@ -38,7 +43,7 @@ window.onload = function () {
         const username = document.getElementById('jsonUsername').value;
         const password = document.getElementById('jsonPassword').value;
 
-        fetch('/v1/api/login', {
+        fetch(domain + '/v1/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -59,8 +64,17 @@ window.onload = function () {
                 document.getElementById("secureCookieDisplay").innerText =
                     secureToken ? `✅ Secure Cookie: ${secureToken}` : "❌ Secure Cookie not found";
 
+
                 document.getElementById("plainCookieDisplay").innerText =
                     plainSession ? `✅ Plain Cookie: ${plainSession}` : "❌ Plain Cookie not found";
+
+
+                //For COORS scenario sine we can't get JSESSIONID in different domain hence reading from responses
+                const sessionId = data.sessionId;
+                console.log('Session ID:', sessionId);
+
+                // For subsequent requests, use this session ID
+                localStorage.setItem('sessionId', sessionId);
             })
             .catch(err => {
                 document.getElementById('jsonLoginStatus').innerText = '❌ Login failed';
@@ -74,7 +88,7 @@ window.onload = function () {
         const username = document.getElementById('jwtUsername').value;
         const password = document.getElementById('jwtPassword').value;
 
-        fetch('/v2/api/login', {
+        fetch(domain + '/v2/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -104,12 +118,12 @@ window.onload = function () {
             });
     });
 
-    //DB login 
+    //DB login
     document.getElementById('dbLoginBtn').addEventListener('click', function () {
         const username = document.getElementById('dbUsername').value;
         const password = document.getElementById('dbPassword').value;
 
-        fetch('/v3/api/login', {
+        fetch(domain + '/v3/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -151,8 +165,16 @@ window.onload = function () {
     document.getElementById('apiDropdown').addEventListener('change', function () {
         const selectedPath = this.value;
         const jwt = localStorage.getItem('jwt');
+        // Read the session ID from localStorage
+        const sessionId = localStorage.getItem('sessionId');
+        if (sessionId) {
+            // Before making the request, set the cookie manually
+            document.cookie = `JSESSIONID=${sessionId}; path=/`;
+        }
+
+
         if (selectedPath) {
-            fetch(selectedPath,
+            fetch(domain + selectedPath,
                 {
                     credentials: "include",
                     headers: {

@@ -1,10 +1,12 @@
 package com.saha.amit.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.saha.amit.filter.*;
 import com.saha.amit.service.CustomUserDetailsService;
 import com.saha.amit.util.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -30,9 +32,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.io.IOException;
+import java.net.URI;
+import java.util.*;
 
 @Configuration
 public class SecurityConfig {
@@ -53,9 +55,14 @@ public class SecurityConfig {
         DataBaseAuthorizationFilter dbAuthorizationFilter = new DataBaseAuthorizationFilter(jwtUtil);
 
         jsonAuthFilter.setAuthenticationSuccessHandler((request, response, authentication) -> {
-            response.setStatus(HttpServletResponse.SC_OK);
-            response.setContentType("application/json");
-            response.getWriter().write("{\"message\": \"Login successful JsonUsernamePasswordAuthenticationFilter \"}");
+            if (isCorsRequest(request)) {
+                response.setStatus(HttpServletResponse.SC_OK);
+                response.setContentType("application/json");
+                response.getWriter().write("{\"message\": \"Login successful JsonUsernamePasswordAuthenticationFilter \"}");
+            } else {
+                //For CORS
+                setCORSHeader(request, response);
+            }
         });
 
         jsonAuthFilter.setAuthenticationFailureHandler((request, response, exception) -> {
@@ -76,9 +83,10 @@ public class SecurityConfig {
                     @Override
                     public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
                         CorsConfiguration config = new CorsConfiguration();
-                        config.setAllowedOrigins(Collections.singletonList("http://localhost"));
+                        config.setAllowedOriginPatterns(Arrays.asList("http://localhost:80", "http://localhost"));
                         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                         config.setAllowCredentials(true);
+                        config.setExposedHeaders(Arrays.asList("Authorization", "Set-Cookie"));
                         config.setAllowedHeaders(Collections.singletonList("*"));
                         config.setMaxAge(3600L);
                         return config;
@@ -142,6 +150,46 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
+
+    public boolean isCorsRequest(HttpServletRequest request) {
+        String origin = request.getHeader("Origin");
+
+        // If there's no Origin header, it's not a CORS request
+        if (origin == null) {
+            return false;
+        }
+
+        // Get the current request URL
+        String requestUrl = request.getRequestURL().toString();
+        String requestHost = URI.create(requestUrl).getHost();
+
+        // Get the origin host
+        String originHost = URI.create(origin).getHost();
+
+        // If they differ, it's a CORS request
+        return !originHost.equals(requestHost);
+    }
+
+    private void setCORSHeader(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        // Get the current session ID
+        HttpSession session = request.getSession();
+        String sessionId = session.getId();
+
+        // Set response parameters
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.setContentType("application/json");
+
+        // Create JSON response with session ID
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.put("message", "Login successful JsonUsernamePasswordAuthenticationFilter");
+        responseMap.put("sessionId", sessionId);
+
+        // Use Jackson or Gson to convert map to JSON
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonResponse = mapper.writeValueAsString(responseMap);
+
+        response.getWriter().write(jsonResponse);
     }
 
 //    @Bean
