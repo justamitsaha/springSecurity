@@ -29,6 +29,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.security.web.context.SecurityContextHolderFilter;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
@@ -48,6 +52,8 @@ public class SecurityConfig {
                                             @Qualifier("defaultAuthenticationManager") AuthenticationManager defaultAuthManager,
                                             @Qualifier("dbAuthManager") AuthenticationManager dbAuthManager,
                                             JwtUtil jwtUtil) throws Exception {
+
+        //CsrfTokenRequestAttributeHandler csrfTokenRequestAttributeHandler = new CsrfTokenRequestAttributeHandler();
 
         JsonUsernamePasswordAuthenticationFilter jsonAuthFilter = new JsonUsernamePasswordAuthenticationFilter(defaultAuthManager);
         JwtLoginFilter jwtLoginFilter = new JwtLoginFilter(defaultAuthManager, jwtUtil);
@@ -74,11 +80,11 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> authorizationManagerRequestMatcherRegistry
                         .requestMatchers("/favicon.ico", "/public/style.css", "/public/main.js", "/images/**", "/public/home.html", "/h2-console/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/v1/api/login", "/v2/api/login", "/v3/api/login").permitAll()
-                        .requestMatchers("/admin/announcement").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/v1/api/login", "/v2/api/login", "/v3/api/login", "/public/publicUpdate").permitAll()
+                        .requestMatchers("/admin/announcement", "/private/protectedUpdate").authenticated()
                         .requestMatchers("/private/balance", "/private/message").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/admin/loan").hasRole("ADMIN")
-                        .requestMatchers("/public/home", "/public/contact", "/error", "/public/myLogin", "/public/me").permitAll()
+                        .requestMatchers("/public/**", "/error").permitAll()
                 ).cors(corsConfig -> corsConfig.configurationSource(new CorsConfigurationSource() {
                     @Override
                     public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
@@ -92,6 +98,10 @@ public class SecurityConfig {
                         return config;
                     }
                 }))
+                .csrf(csrfConfig -> csrfConfig.csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler())
+                        .ignoringRequestMatchers("/h2-console/**", "/api/login", "/login")
+                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
+                //.csrf(csrf -> csrf.disable())          // ✅ for H2 POSTs and for CORS requests
                 .formLogin(form -> form
                         .loginPage("/public/home.html")
                         .loginProcessingUrl("/login")
@@ -102,14 +112,13 @@ public class SecurityConfig {
                 //.requiresChannel(rcc -> rcc.anyRequest().requiresSecure()) // Only HTTPS
                 .authenticationManager(defaultAuthManager) // ✅ Forces form login to use in-memory auth only
                 .headers(headers -> headers.frameOptions(frame -> frame.disable())) // ✅ for H2 frames
-                .csrf(csrf -> csrf.disable())                                        // ✅ for H2 POSTs
+                .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
                 .addFilterAt(jsonAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new JwtAuthorizationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtLoginFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(dbLoginFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterAfter(dbAuthorizationFilter, JwtAuthorizationFilter.class)
-                .httpBasic(Customizer.withDefaults())          //credentials inside the httpRequest header by Base64 encoding them, BasicAuthenticationFilter
-                .csrf(AbstractHttpConfigurer::disable);
+                .httpBasic(Customizer.withDefaults());     //credentials inside the httpRequest header by Base64 encoding them, BasicAuthenticationFilter
         return http.build();
     }
 

@@ -112,7 +112,8 @@ public class DataBaseAuthorizationFilter extends OncePerRequestFilter {
     protected boolean shouldNotFilter(HttpServletRequest request) {
         return request.getRequestURI().startsWith("/v1/api/login")
                 || request.getRequestURI().startsWith("/v2/api/login")
-                || request.getRequestURI().startsWith("/v3/api/login");
+                || request.getRequestURI().startsWith("/v3/api/login")
+                || request.getRequestURI().startsWith("/public/");
     }
 }
 

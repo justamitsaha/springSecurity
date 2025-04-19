@@ -10,7 +10,8 @@ body {
     margin: 0 auto;
 }
 
-h2, h3 {
+h2,
+h3 {
     color: #2c3e50;
     margin-top: 20px;
     border-bottom: 2px solid #eee;
@@ -33,7 +34,8 @@ h3 {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
-    flex-wrap: wrap; /* Added for better mobile handling */
+    flex-wrap: wrap;
+    /* Added for better mobile handling */
 }
 
 /* Status Box */
@@ -82,7 +84,8 @@ h3 {
 }
 
 /* Form Elements */
-form, .json-form {
+form,
+.json-form {
     width: 100%;
 }
 
@@ -136,7 +139,8 @@ hr {
 }
 
 /* Status Elements */
-#status, #jsonLoginStatus {
+#status,
+#jsonLoginStatus {
     padding: 10px;
     border-radius: 4px;
     background-color: #f8f9fa;
@@ -184,7 +188,8 @@ table {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-th, td {
+th,
+td {
     border: 1px solid #e0e0e0;
     padding: 15px;
     text-align: left;
@@ -227,18 +232,22 @@ tr:hover {
 /* Responsive Adjustments */
 @media (max-width: 768px) {
     .header-container {
-        flex-direction: row; /* Keep horizontal on smaller screens */
+        flex-direction: row;
+        /* Keep horizontal on smaller screens */
         flex-wrap: wrap;
         gap: 10px;
     }
 
     h2 {
-        margin-right: auto; /* Push status box to right if there's room */
+        margin-right: auto;
+        /* Push status box to right if there's room */
     }
 
     .status-box {
-        margin-left: auto; /* Align to right if possible */
-        min-width: 150px; /* Make smaller on mobile */
+        margin-left: auto;
+        /* Align to right if possible */
+        min-width: 150px;
+        /* Make smaller on mobile */
     }
 
     .forms-container {
@@ -273,7 +282,8 @@ tr:hover {
         margin-left: 0;
     }
 
-    h2, h3 {
+    h2,
+    h3 {
         width: 100%;
     }
 
@@ -282,7 +292,12 @@ tr:hover {
     }
 
     /* Make table responsive */
-    table, thead, tbody, th, td, tr {
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
         display: block;
     }
 
@@ -315,7 +330,52 @@ tr:hover {
     }
 
     /* Add labels for each cell */
-    td:nth-of-type(1):before { content: "Scenario:"; }
-    td:nth-of-type(2):before { content: "Cookie Sent?:"; }
-    td:nth-of-type(3):before { content: "Reason:"; }
+    td:nth-of-type(1):before {
+        content: "Scenario:";
+    }
+
+    td:nth-of-type(2):before {
+        content: "Cookie Sent?:";
+    }
+
+    td:nth-of-type(3):before {
+        content: "Reason:";
+    }
+}
+
+.mybutton {
+    padding: 10px 18px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+    width: 25%;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+.api-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+
+pre#statusMessage {
+    background: #fff;
+    padding: 15px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    white-space: pre-wrap;
+    font-family: 'Consolas', 'Monaco', monospace;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+    max-height: 300px;
+    overflow-y: auto;
 }
