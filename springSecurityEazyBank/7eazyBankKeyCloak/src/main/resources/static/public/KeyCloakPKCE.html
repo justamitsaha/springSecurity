@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Keycloak PKCE with Plain JS</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="main.js"></script>
+    <script src="auth.js" defer></script>
+</head>
+
+<div class="header-container">
+    <h2>Login Page</h2>
+    <div class="status-box">
+        <h3>Login Status</h3> <button id="checkLoginStatus">Check Login Status and generate XSRF-TOKEN</button>
+        <p id="loginStatus">Checking...</p>
+    </div>
+</div>
+
+<body>
+<button id="loginBtn">Login</button>
+<button id="logoutBtn" style="display:none">Logout</button>
+<div id="userInfo"></div>
+
+<div class="api-controls">
+    <h3 style="width: 100%;">Choose an API to call:</h3>
+    <select id="apiDropdown">
+        <option value="">-- Select an endpoint --</option>
+        <option value="/public/home">🏠 Public Home</option>
+        <option value="/public/contact">📞 Public Contact</option>
+        <option value="/private/balance">💰 Private Balance</option>
+        <option value="/private/message">📩 Private Message</option>
+        <option value="/admin/announcement">📢 Admin Announcement</option>
+        <option value="/admin/loan">🏦 Admin Loan</option>
+    </select>
+
+    <button class="mybutton" id="protectedUpdate">Protected Update</button>
+    <button class="mybutton" id="publicUpdate">Public Update</button>
+</div>
+
+
+<div class="api-container">
+    <div class="api-response">
+        <h3>API Response:</h3>
+        <textarea id="apiResponse" style="width: 100%; display: inline;">API response will appear here...</textarea>
+        <textarea id="statusMessage"
+                  style="width: 100%; display: inline;">POST response will appear here...</textarea>
+    </div>
+
+</div>
+</body>
+
+</html>

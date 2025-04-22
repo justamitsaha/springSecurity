@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
+import java.util.Random;
 
 @RestController
 public class MainController {
@@ -35,12 +36,16 @@ public class MainController {
 
     @GetMapping("private/balance")
     public String account() {
-        return "YOUR BALANCE IS $1000";
+        Random random = new Random();
+        int balance = random.nextInt(1000, 99999);
+        return "YOUR BALANCE IS $" + balance;
     }
 
     @GetMapping("private/message")
     public String messages() {
-        return "YOU HAVE 99 MESSAGES";
+        Random random = new Random();
+        int message = random.nextInt(50, 100);
+        return "YOU HAVE " + message + " MESSAGES";
     }
 
     @GetMapping("admin/announcement")
@@ -55,12 +60,12 @@ public class MainController {
 
     @PostMapping("/private/protectedUpdate")
     public String securePost(){
-        return "Secure";
+        return "Secure POST response ";
     }
 
     @PostMapping("/public/publicUpdate")
     public String insecurePost(){
-        return "Public";
+        return "Public POST response";
     }
 
 }

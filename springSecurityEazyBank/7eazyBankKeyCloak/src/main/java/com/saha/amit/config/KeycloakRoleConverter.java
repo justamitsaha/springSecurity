@@ -1,5 +1,7 @@
 package com.saha.amit.config;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,6 +14,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class KeycloakRoleConverter implements Converter<Jwt, Collection<GrantedAuthority>> {
+
+    Log log = LogFactory.getLog(KeycloakRoleConverter.class);
     /**
      * @param source the source object to convert, which must be an instance of {@code S} (never {@code null})
      * @return
@@ -24,6 +28,7 @@ public class KeycloakRoleConverter implements Converter<Jwt, Collection<GrantedA
         }
         Collection<GrantedAuthority> returnValue = ((List<String>) realmAccess.get("roles"))
                 .stream().map(roleName -> "ROLE_" + roleName)
+                .peek(s -> log.info("Role fetched "+ s) )
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
         return returnValue;

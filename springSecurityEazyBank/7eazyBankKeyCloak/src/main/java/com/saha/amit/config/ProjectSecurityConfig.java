@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
@@ -40,8 +41,12 @@ public class ProjectSecurityConfig {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         log.info("Initializing "+ProjectSecurityConfig.class);
+
+       /* Creates a JwtAuthenticationConverter that uses a custom KeycloakRoleConverter to extract roles from the JWT token.
+           The converter transforms Keycloak roles into Spring's GrantedAuthority format (prefixed with "ROLE_")*/
         JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
         jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(new KeycloakRoleConverter());
+
         CsrfTokenRequestAttributeHandler csrfTokenRequestAttributeHandler = new CsrfTokenRequestAttributeHandler();
         http.sessionManagement(sessionConfig -> sessionConfig.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .cors(corsConfig -> corsConfig.configurationSource(new CorsConfigurationSource() {
@@ -63,16 +68,15 @@ public class ProjectSecurityConfig {
                 .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
                 .requiresChannel(rcc -> rcc.anyRequest().requiresInsecure()) // Only HTTP
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/myAccount").hasRole("USER")
-                        .requestMatchers("/myBalance").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers("/myLoans").authenticated()
-                        .requestMatchers("/myCards").hasRole("USER")
-                        .requestMatchers("/user").authenticated()
-                        .requestMatchers("/notices", "/contact", "/error", "/register").permitAll());
-        /*http.oauth2ResourceServer(rsc -> rsc.jwt(jwtConfigurer ->
-                jwtConfigurer.jwtAuthenticationConverter(jwtAuthenticationConverter)));*/
-        http.oauth2ResourceServer(rsc -> rsc.opaqueToken(otc -> otc.authenticationConverter(new KeycloakOpaqueRoleConverter())
-                .introspectionUri(this.introspectionUri).introspectionClientCredentials(this.clientId,this.clientSecret)));
+                        .requestMatchers("/error", "/public/**","/favicon.ico").permitAll()
+                        .requestMatchers("/admin/announcement", "/private/protectedUpdate").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/public/publicUpdate").permitAll()
+                        .requestMatchers("/private/balance", "/private/message").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/admin/loan").hasRole("ADMIN"));
+        http.oauth2ResourceServer(rsc -> rsc.jwt(jwtConfigurer ->
+                jwtConfigurer.jwtAuthenticationConverter(jwtAuthenticationConverter)));
+//        http.oauth2ResourceServer(rsc -> rsc.opaqueToken(otc -> otc.authenticationConverter(new KeycloakOpaqueRoleConverter())
+//                .introspectionUri(this.introspectionUri).introspectionClientCredentials(this.clientId,this.clientSecret)));
         http.exceptionHandling(ehc -> ehc.accessDeniedHandler(new CustomAccessDeniedHandler()));
         return http.build();
     }
