@@ -81,9 +81,9 @@ public class SecurityConfig {
         http.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> authorizationManagerRequestMatcherRegistry
                         .requestMatchers("/favicon.ico", "/public/style.css", "/public/main.js", "/images/**", "/public/home.html", "/h2-console/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/v1/api/login", "/v2/api/login", "/v3/api/login", "/public/publicUpdate").permitAll()
-                        .requestMatchers("/admin/announcement", "/private/protectedUpdate").authenticated()
+                        .requestMatchers("/private/protectedUpdate").authenticated()
                         .requestMatchers("/private/balance", "/private/message").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers("/admin/loan").hasRole("ADMIN")
+                        .requestMatchers("/admin/announcement","/admin/loan").hasRole("ADMIN")
                         .requestMatchers("/public/**", "/error").permitAll()
                 ).cors(corsConfig -> corsConfig.configurationSource(new CorsConfigurationSource() {
                     @Override
