@@ -11,9 +11,9 @@ public class SpringSecurityBasicApplication {
     public static final Log log = LogFactory.getLog(SpringSecurityBasicApplication.class);
 
     public static void main(String[] args) {
+        SpringApplication.run(SpringSecurityBasicApplication.class, args);
         log.info("http://localhost:8080/public/home.html");
         log.info("http://localhost:8080/h2-console/login.do");
-        SpringApplication.run(SpringSecurityBasicApplication.class, args);
     }
 
 }

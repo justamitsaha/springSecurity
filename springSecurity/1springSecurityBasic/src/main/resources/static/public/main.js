@@ -218,13 +218,15 @@ window.onload = function () {
 
         // Update status to show request is in progress
         statusElement.textContent = "Making request...";
+        const jwt = localStorage.getItem('jwt');
 
         fetch(domain + uri, {
             method: 'POST',
             credentials: "include",
             headers: {
                 'Content-Type': 'application/json',
-                'X-XSRF-TOKEN': XSRFTOKEN
+                'X-XSRF-TOKEN': XSRFTOKEN,
+                'Authorization': 'Bearer ' + jwt,
             }
         })
             .then(response => {
