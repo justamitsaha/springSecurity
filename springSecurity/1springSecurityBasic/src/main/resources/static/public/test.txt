@@ -1,0 +1,143 @@
+✅ 1. .loginPage("/public/myLogin")
+This tells Spring Security where to show the custom login page.
+
+When an unauthenticated user tries to access a protected resource, they'll be redirected to /public/myLogin.
+
+You must ensure this URL is publicly accessible (which you’ve already permitted in your authorizeHttpRequests).
+
+✅ 2. .loginProcessingUrl("/login")
+This defines the endpoint that Spring Security will watch for login form submissions.
+
+Your HTML login form should POST to this URL:
+s
+<form method="POST" action="/login">
+Spring intercepts this POST and performs authentication automatically (you don’t need a controller for this).
+
+✅ 3. .defaultSuccessUrl("/public/home.html", true)
+This sets the page to redirect to after a successful login.
+
+If false (or omitted), Spring would: Redirect back to the originally requested protected URL (if any), or fall back to this one.
+If true  Spring always redirects to this URL after login URL mentioned , regardless of what page the user was trying to access.
+It is useful if we want to redirect to some other page. In our case we want to redirect to requester page /public/home.html So true false is same
+If entire configuration is removed it will redirect to localhost:8080
+
+
+✅ 4. .failureUrl("/public/home.html?error")
+This sets the URL to redirect to when login fails.
+
+If the user enters wrong credentials, Spring Security redirects them to this page.
+
+You can check for the presence of ?error in your page to show an appropriate message:
+
+js
+Copy
+Edit
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.has('error')) {
+    // Show login failure message
+}
+✅ 5. .permitAll()
+This tells Spring Security that all users (even unauthenticated ones) are allowed to access the login page and submit the login form.
+
+Without this, Spring might block access to your login form itself, creating a redirect loop.
+
+<--------------------------------------------------------->
+
+Great question — you're seeing a login popup (browser dialog box) when accessing protected URLs like /private/balance because of this line in your configuration:
+
+java
+Copy
+Edit
+.httpBasic(Customizer.withDefaults()) // 👈 This one
+🔍 Why it's happening
+The .httpBasic(...) enables HTTP Basic Authentication, which works like this:
+
+When a user (browser) tries to access a protected resource without being authenticated, and no login page or cookie-based session exists, the server replies with:
+
+mathematica
+Copy
+Edit
+401 Unauthorized
+WWW-Authenticate: Basic realm="..."
+The browser then automatically shows a native popup asking for a username and password.
+
+That's why you're getting that login dialog — it's the browser responding to the WWW-Authenticate header sent by Spring Security's BasicAuthenticationEntryPoint.
+
+✅ How to fix it
+If you don’t want this Basic Auth popup and you want all unauthenticated users to be redirected to your custom login page instead, simply remove or comment out this line:
+
+java
+Copy
+Edit
+// .httpBasic(Customizer.withDefaults())
+Your updated config should look like this:
+
+java
+Copy
+Edit
+http
+    .authorizeHttpRequests(...) // same as before
+    .formLogin(...)             // custom login flow
+    .addFilterAt(jsonAuthFilter, UsernamePasswordAuthenticationFilter.class)
+    .csrf(AbstractHttpConfigurer::disable); // still disable CSRF if needed
+📝 Bonus: When should you keep .httpBasic()?
+Use HTTP Basic only if:
+
+You're building an API consumed by a tool like curl or Postman.
+
+You want to support programmatic login using headers instead of forms or JSON.
+
+But for browser users, it’s better UX to stick with formLogin() or your JSON-based login filter.
+
+Let me know if you want both API + browser login to work side by side — it’s doable with a few tweaks!
+
+<----------------------------------------------------->
+
+Should I send JWT in the response body instead of header?
+Option A: Send JWT in Header (current approach)
+http
+Copy
+Edit
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR...
+Pros:
+
+✅ Simple to implement
+
+✅ Standard practice for SPAs or mobile apps
+
+✅ Works well with Authorization header for subsequent API calls
+
+Cons:
+
+❌ Cannot easily inspect the token in browser dev tools (unless intercepted)
+
+❌ Less flexible if you want to return additional metadata (like user info)
+
+Option B: Send JWT in Response Body
+json
+Copy
+Edit
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR...",
+  "username": "amit",
+  "roles": ["USER"],
+  "age": 25
+}
+Pros:
+
+✅ Easier to inspect in dev tools or Postman
+
+✅ Lets you return additional info (age, roles, login success message, etc.)
+
+✅ More frontend-friendly (esp. for React, Angular, etc.)
+
+Cons:
+
+❌ Client needs to extract and manually store the token (e.g., in localStorage or memory)
+
+❌ You have to ensure token is sent as a Bearer token in the Authorization header for future API calls
+
+✅ Recommendation
+If you're building an API-first app (e.g., frontend in React/Vue/Angular): send JWT in the response body
+
+If it's a strict backend-to-backend app or you're following minimal REST conventions: use the header

@@ -1,0 +1,63 @@
+<html>
+<head>
+    <title>Custom Login</title>
+    <script>
+        window.onload = function() {
+            // Check login status
+            fetch('/public/me')
+                .then(res => {
+                    if (res.ok) {
+                        return res.json();
+                    } else {
+                        throw new Error('Not logged in');
+                    }
+                })
+                .then(data => {
+                    document.getElementById('loginStatus').innerText = `✅ Logged in as: ${data.username}`;
+                })
+                .catch(err => {
+                    document.getElementById('loginStatus').innerText = '❌ Not logged in';
+                });
+
+            // Handle error and logout messages from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('error')) {
+                document.getElementById('status').innerText = '❌ Login failed. Please try again.';
+                document.getElementById('status').style.color = 'red';
+            }
+            if (urlParams.has('logout')) {
+                document.getElementById('status').innerText = '✅ You have been logged out.';
+                document.getElementById('status').style.color = 'green';
+            }
+        };
+    </script>
+</head>
+<body>
+<h2>Login Page</h2>
+
+<!-- This form mimics Spring's default login page -->
+<form method="POST" action="/login">
+    <label>Username:</label>
+    <input type="text" name="username" required><br>
+
+    <label>Password:</label>
+    <input type="password" name="password" required><br><br>
+
+    <button type="submit">Login</button>
+</form>
+
+<p id="status"></p>
+
+<h3>Login Status</h3>
+<p id="loginStatus">Checking...</p>
+
+<hr>
+
+<a href='/public/home'>HOME</a> <br>
+<a href='/public/contact'>CONTACT</a> <br>
+<a href='/private/balance'>BALANCE</a> <br>
+<a href='/private/message'>MESSAGE</a> <br>
+<a href='/admin/announcement'>ANNOUNCEMENT</a> <br>
+<a href='/admin/loan'>LOAN</a> <br>
+</body>
+</html>
