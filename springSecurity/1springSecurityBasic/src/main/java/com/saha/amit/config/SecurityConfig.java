@@ -13,14 +13,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Primary;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.*;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -30,10 +29,6 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import org.springframework.security.web.context.SecurityContextHolderFilter;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
-import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
 import java.io.IOException;
@@ -43,9 +38,26 @@ import java.util.*;
 @Configuration
 public class SecurityConfig {
 
+
+    private final CorsConfigurationSource corsConfigurationSource;
+    private final Customizer<CsrfConfigurer<HttpSecurity>> csrfCustomizer;
+    private final Customizer<AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry> authorizationRules;
+    private final Customizer<FormLoginConfigurer<HttpSecurity>> formLoginConfigurerCustomizer;
+
+
+
+
     @Lazy
     @Autowired
-    private CustomUserDetailsService customUserDetailsService;
+    public SecurityConfig(CorsConfigurationSource corsConfigurationSource,
+                          Customizer<CsrfConfigurer<HttpSecurity>> csrfCustomizer,
+                          Customizer<AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry> authorizationRules, Customizer<FormLoginConfigurer<HttpSecurity>> formLoginConfigurerCustomizer) {
+        this.corsConfigurationSource = corsConfigurationSource;
+        this.csrfCustomizer = csrfCustomizer;
+        this.authorizationRules = authorizationRules;
+        this.formLoginConfigurerCustomizer = formLoginConfigurerCustomizer;
+    }
+
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http,
@@ -77,41 +89,15 @@ public class SecurityConfig {
             response.getWriter().write("{\"message\": \"Login failed JsonUsernamePasswordAuthenticationFilter\"}");
         });
 
-
-        http.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> authorizationManagerRequestMatcherRegistry
-                        .requestMatchers("/favicon.ico", "/public/style.css", "/public/main.js", "/images/**", "/public/home.html", "/h2-console/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/v1/api/login", "/v2/api/login", "/v3/api/login", "/public/publicUpdate").permitAll()
-                        .requestMatchers("/private/protectedUpdate").authenticated()
-                        .requestMatchers("/private/balance", "/private/message").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers("/admin/announcement","/admin/loan").hasRole("ADMIN")
-                        .requestMatchers("/public/**", "/error").permitAll()
-                ).cors(corsConfig -> corsConfig.configurationSource(new CorsConfigurationSource() {
-                    @Override
-                    public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
-                        CorsConfiguration config = new CorsConfiguration();
-                        config.setAllowedOriginPatterns(Arrays.asList("http://localhost:80", "http://localhost"));
-                        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-                        config.setAllowCredentials(true);
-                        config.setExposedHeaders(Arrays.asList("Authorization", "Set-Cookie"));
-                        config.setAllowedHeaders(Collections.singletonList("*"));
-                        config.setMaxAge(3600L);
-                        return config;
-                    }
-                }))
-                .csrf(csrfConfig -> csrfConfig.csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler())
-                        .ignoringRequestMatchers("/h2-console/**", "/api/login", "/login")
-                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
+        http
+                .authorizeHttpRequests(authorizationRules)
+                .cors(corsConfig -> corsConfig.configurationSource(corsConfigurationSource))
+                .csrf(csrfCustomizer)
                 //.csrf(csrf -> csrf.disable())          // ✅ for H2 POSTs and for CORS requests
-                .formLogin(form -> form
-                        .loginPage("/public/home.html")
-                        .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/public/home.html", false)
-                        .failureUrl("/public/home.html?error")
-                        .permitAll()
-                )
+                .formLogin(formLoginConfigurerCustomizer)
                 //.requiresChannel(rcc -> rcc.anyRequest().requiresSecure()) // Only HTTPS
                 .authenticationManager(defaultAuthManager) // ✅ Forces form login to use in-memory auth only
-                .headers(headers -> headers.frameOptions(frame -> frame.disable())) // ✅ for H2 frames
+                .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable)) // ✅ for H2 frames
                 .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
                 .addFilterAt(jsonAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new JwtAuthorizationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)
@@ -122,44 +108,6 @@ public class SecurityConfig {
         return http.build();
     }
 
-
-    @Bean
-    //public UserDetailsManager userDetailsService() { This has additional API for create user, reset pwd etc.
-    public UserDetailsService userDetailsService() {
-        UserDetails admin = User.withUsername("admin").password("{noop}qwerty").roles("ADMIN").build();
-        UserDetails user = User.withUsername("user").password("{bcrypt}$2a$12$h0qbEfY3fK8Xz4CIpuDHM.MdrkSVeKx8AodPaX5McnAirmbevL/gi")
-                .roles("USER").build();     //https://bcrypt-generator.com/  qwerty
-        return new InMemoryUserDetailsManager(admin, user);
-    }
-
-
-    @Primary
-    @Bean(name = "defaultAuthenticationManager")
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
-        DaoAuthenticationProvider inMemoryProvider = new DaoAuthenticationProvider();
-        inMemoryProvider.setUserDetailsService(userDetailsService());  // this is your in-memory one
-        inMemoryProvider.setPasswordEncoder(passwordEncoder());
-        return new ProviderManager(inMemoryProvider);
-    }
-
-    @Bean(name = "dbAuthManager")
-    public AuthenticationManager dbAuthenticationManager() {
-        return new ProviderManager(List.of(dbAuthenticationProvider()));
-    }
-
-    @Bean
-    public DaoAuthenticationProvider dbAuthenticationProvider() {
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(customUserDetailsService);
-        provider.setPasswordEncoder(passwordEncoder()); // already defined
-        return provider;
-    }
-
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-    }
 
     public boolean isCorsRequest(HttpServletRequest request) {
         String origin = request.getHeader("Origin");
