@@ -30,8 +30,8 @@ public class SpringSecOAUTH2GitHubConfig {
     }
 
     private ClientRegistration githubClientRegistration() {
-        return CommonOAuth2Provider.GITHUB.getBuilder("github").clientId("Ov23liCBLLUjii41pS7k")
-                .clientSecret("9da8734b56aad52d91b268fe6834a8df12447d95").build();
+        return CommonOAuth2Provider.GITHUB.getBuilder("github").clientId("Ov23licjnbluSLEEMB8K")
+                .clientSecret("6540fce7cd467f1e51fc8199b652cc982150a4d1").build();
     }
 
     private ClientRegistration facebookClientRegistration() {
